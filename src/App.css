@@ -1,0 +1,277 @@
+/* .almarai-light {
+  font-family: "Almarai", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.almarai-regular {
+  font-family: "Almarai", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.almarai-bold {
+  font-family: "Almarai", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.almarai-extrabold {
+  font-family: "Almarai", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+} */
+
+*{
+  font-family: "Almarai", sans-serif;
+}
+
+.imagenavbar{
+  width: 100%;
+  margin: 0;
+  position: relative;
+  height: 200px;
+}
+
+.imagenavbar img{
+  width: 100%;
+  height: 100%;
+}
+
+.socialmedia{
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.socialmedia div{
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  margin-top: 10px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialmedia img{
+  width: 11px;
+  height: 18px;
+}
+
+.logo{
+  position: absolute;
+  top: 20px;
+  left: 15px;
+}
+
+.logo img{
+  height: 70px;
+}
+
+.textlogo{
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  color: red;
+  border-radius: 50%;
+  bottom: -75px;
+  left: calc(50% - 75px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* font-size: 32px; */
+  font-weight: 700;
+}
+
+.textlogo img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.total{
+  display: flex;
+}
+
+.pdf{
+  text-align: center;
+}
+
+.pdfh1{
+  font-size: 30px;
+  font-weight: 800;
+  color: black;
+  margin-bottom: 30px;
+}
+
+.trip{
+  /* width: 200px; */
+  /* width: 100%; */
+  min-height: 300px;
+  margin-top: 10px;
+  margin-left: auto;
+margin-right: auto;
+  /* background-color: #ea0d0d; */
+}
+
+.tripphoto{
+  width: 180px;
+  height: 250px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow:  0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.tripphoto img{
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+}
+
+.triptext{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.triptext h5{
+  color: red;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.triptext span{
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+}
+
+.posts{
+  text-align: center;
+}
+
+.view{
+  text-align: end;
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.toptext h1{
+  font-size: 24px;
+  font-weight: 700;
+  color: black;
+}
+
+.toptext span{
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(112, 112, 112, 1);
+}
+
+.view{
+  background-color:rgba(245, 245, 245, 1);
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px 0px !important;
+  width: 100%;
+  /* margin-left: 5px; */
+}
+
+
+.view h5{
+  font-weight: 400;
+  font-size: 16px;
+  color: black;
+}
+
+.lastposte{
+  font-weight: 800;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.imageposts{
+  width: 100%;
+  /* height: 300px; */
+}
+
+.imageposts img{
+  /* width: 100%;
+  height: 100%; */
+}
+
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: calc(100vh - 80px);
+  height: 300px;
+}
+
+.buttonformobile{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 50px;
+  display: none;
+}
+
+.buttonformobile div{
+  width: 150px;
+  cursor: pointer;
+  background-color: rgba(253, 1, 0, 1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 20px;
+}
+
+.buttonformobile div:hover{
+  background-color: rgb(227, 53, 53);
+}
+
+.postsandpdf{
+  width: 100%;
+  margin-top: 60px;
+}
+
+
+@media (max-width: 480px) {
+  .tripphoto{
+    background-color: #aaa;
+    /* width: 170px;
+    height: 250px; */
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  .posts{
+    margin-top: 50px;
+  }
+  .textlogo {
+    left: 34%;
+  }
+  .buttonformobile{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 50px;
+    margin-top: 80px;
+  }
+  .postsandpdf{
+    width: 100%;
+    margin-top: 0px;
+  }
+
+  .pdf{
+    margin-top: 50px;
+  }
+  
+}
