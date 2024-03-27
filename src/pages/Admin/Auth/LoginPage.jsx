@@ -1,4 +1,10 @@
-
 export const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return (
+    <div>
+      <div>LoginPage</div>
+      <div>LoginPage</div>
+      <div>LoginPage</div>
+      <div>LoginPage</div>
+    </div>
+  );
 };
