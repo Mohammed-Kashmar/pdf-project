@@ -275,3 +275,10 @@ margin-right: auto;
   }
   
 }
+
+.backgorund_admin {
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(255, 197, 196, 0) 0%, #FFC5C4 100%), url('./images/logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
