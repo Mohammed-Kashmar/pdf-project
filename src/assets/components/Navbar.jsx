@@ -11,7 +11,7 @@ export const Navbar = () => {
   useEffect(() => {
     const showadmin = async () => {
       const respons = await axios.get(
-        `https://api-rating.watanyia.com/user_api/show_admin_by_name?name=hussam`
+        `https://api-rating.watanyia.com/user_api/show_admin_by_name?name=samirkh`
       );
       console.log(respons);
       setAdminDetails(respons.data.data.admin_detail)
