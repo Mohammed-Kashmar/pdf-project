@@ -243,12 +243,139 @@ margin-right: auto;
   margin-top: 60px;
 }
 
+.detailspdf{
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-top: 100px;
+}
+
+.detailstitle{
+  color: rgba(253, 1, 0, 1);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.detailsdescription{
+  font-size: 16px;
+  font-weight: 400;
+}
+
+
+
+.update{
+  display: flex;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 25px;
+  color: rgba(253, 1, 0, 1);
+  border-bottom: none;
+  padding-top: 10px;
+}
+
+.input{
+  width: 90%;
+  border-radius: 50px;
+  text-align: end;
+  margin: auto;
+  font-weight: 300;
+  line-height: 25px;
+  font-size: 20px;
+}
+
+.button-modal{
+  padding: 20px 10px;
+  border: none;
+  width: 100px;
+  height: 40px;
+  border-radius: 50px;
+  color: rgba(112, 112, 112, 1);
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 25px;
+  background-color: white;
+  border: 1px solid rgba(112, 112, 112, 1);
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-modal:hover{
+  background-color: rgba(253, 1, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+.bb{
+  text-align: center;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.numbersyria{
+  border-radius: 60px 0 0 60px;
+  background-color: rgba(255, 0, 0, 1);
+  color: white;
+  padding: 8px 10px;
+  position: absolute;
+  left: 23px;
+}
+.modal-content{
+  border-radius: 50px;
+}
+
+.radio-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid red; /* لون الحدود الخارجية */
+}
+
+.radio-input:checked {
+  background-color: red; 
+  border: none;/* لون النقطة داخل الدائرة عند التحديد */
+}
+
+
+.react-datepicker__input-container {
+  position: relative;
+}
+
+.react-datepicker__input-container input {
+  border: 2px solid red; /* لون الحدود */
+  border-radius: 30px;
+  padding: 5px; /* تباعد داخلي */
+}
+
+.react-datepicker__input-container input{
+text-align: end;
+}
+
+.rit{
+  background-color: red;
+  color: white;
+  font-size: 14px;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
 
 @media (max-width: 480px) {
   .tripphoto{
     background-color: #aaa;
-    /* width: 170px;
-    height: 250px; */
     border-radius: 30px;
     cursor: pointer;
   }
@@ -274,4 +401,7 @@ margin-right: auto;
     margin-top: 50px;
   }
   
+  .numbersyria{
+    margin-left: -5px;
+  }
 }

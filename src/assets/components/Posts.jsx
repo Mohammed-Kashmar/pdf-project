@@ -27,7 +27,7 @@ export const Posts = ({viewPosts,setViewPosts}) => {
         }));
 
         return {
-          postId: item.id, // Add any other properties from the item that you want to include
+          postId: item.id,
           images: postImages,
         };
       });
@@ -36,9 +36,9 @@ export const Posts = ({viewPosts,setViewPosts}) => {
   }, [posts]);
 
   console.log(posts);
-  if (imgs.length > 0) {
-    console.log(imgs[0].images);
-  }
+  // if (imgs.length > 0) {
+  //   console.log(imgs[0].images);
+  // }
 
   return (
     <div className="posts">
