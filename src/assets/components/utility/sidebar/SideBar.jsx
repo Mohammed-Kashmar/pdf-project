@@ -21,9 +21,7 @@ const SideBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setTimeout(() => {
-      window.location.href = "/login";
-    }, 1500);
+  
   };
 
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -74,7 +72,7 @@ const SideBar = () => {
           </Link>
         )}
 
-        <Link to="" onClick={handleLogout}>
+        <Link to="/login" onClick={handleLogout}>
           <p className=" text-danger"> تسجيل الخروج </p>
           <img src={vector_logout} alt="" />
         </Link>

@@ -198,10 +198,10 @@ const downloadFile = (location) => {
       )}
 
       <Modal show={showrit} onHide={handleCloseRit} centered>
-        <Modal.Header className="update">
+        <Modal.Header className="update p-3">
           <Modal.Title className="update"> PDF تقييم </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="p-3">
           <div className="rating-container">
             <Rating
               count={5}
@@ -219,7 +219,7 @@ const downloadFile = (location) => {
                 type="text"
                 placeholder="سبب التقييم"
                 autoFocus
-                className="input"
+                className="input p-2"
                 name="note"
                 value={formData.note}
                 onChange={handleChange}
@@ -234,7 +234,7 @@ const downloadFile = (location) => {
               <Form.Control
                 type="text"
                 placeholder=" الرقم "
-                className="input"
+                className="input p-2"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
@@ -258,9 +258,9 @@ const downloadFile = (location) => {
         centered
       >
         <Modal.Header className="update">
-          <Modal.Title className="update"> المعلومات الشخصية </Modal.Title>
+          <Modal.Title className="update p-3"> المعلومات الشخصية </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="p-3">
           <Form>
             <Form.Group
               className="  mb-3"
@@ -270,7 +270,7 @@ const downloadFile = (location) => {
                 type="text"
                 placeholder="الاسم"
                 autoFocus
-                className="input"
+                className="input p-2"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
@@ -284,13 +284,13 @@ const downloadFile = (location) => {
               <Form.Control
                 type="date"
                 placeholder=" الميلاد "
-                className="input"
+                className="input p-2"
                 name="birthday"
                 value={formData.birthday}
                 onChange={handleChange}
               />
             </Form.Group>
-            <div style={{ display: "flex", alignItems: "center" , justifyContent:"end" , marginRight:"30px" }}>
+            <div className="radioGender" style={{ display: "flex", alignItems: "center" , justifyContent:"end" , marginRight:"30px" }}>
               <div className="form-check">
                 <label className="form-check-label" htmlFor="exampleRadio1">
                   انثى
@@ -304,7 +304,7 @@ const downloadFile = (location) => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-check" style={{marginLeft:"10px"}}>
+              <div className="form-check">
                 <label className="form-check-label" htmlFor="exampleRadio2">
                   ذكر
                 </label>
@@ -317,7 +317,7 @@ const downloadFile = (location) => {
                   onChange={handleChange}
                 />
               </div>
-              <div style={{marginLeft:"50px"}}>الجنس</div>
+              <div className="gen">الجنس</div>
             </div>
           </Form>
           <div className="bb">

@@ -19,7 +19,7 @@ export default function RatesPdf() {
     rate: "",
     from_age: "",
     to_age: "",
-    page: ''
+    page: "",
   });
   const { pdfId } = useParams();
   let query = `/admin_api/show_pdf_rates?pdfId=${pdfId}&from_date=${filterParams.from_date}&to_date=${filterParams.to_date}&gender=${filterParams.gender}`;
@@ -37,7 +37,7 @@ export default function RatesPdf() {
     query
   );
 
-  console.log(ratesPdf)
+  console.log(ratesPdf);
   const handleClose = () => setShow(false);
   const handleShow = async (id) => {
     const res = await useGetData(`/admin_api/show_rate?rateId=${id}`);
@@ -52,12 +52,12 @@ export default function RatesPdf() {
       rate: "",
       from_age: "",
       to_age: "",
-      page: ''
+      page: "",
     });
   };
 
   const onPress = async (page) => {
-    setFilterParams({ ...filterParams, page: page })
+    setFilterParams({ ...filterParams, page: page });
   };
 
   return (
@@ -239,7 +239,7 @@ export default function RatesPdf() {
         </table>
       </div>
 
-      {ratesPdf && ratesPdf.last_page >= 1 ? (
+      {ratesPdf && ratesPdf.last_page > 1 ? (
         <Pagination onPress={onPress} pageCount={ratesPdf.last_page} />
       ) : null}
 
@@ -261,8 +261,7 @@ export default function RatesPdf() {
                   <strong>الجنس:</strong> {show.gender}
                 </p>
                 <p>
-                  <strong> الهاتف:</strong>
-                  {show.phone}
+                  <strong>الهاتف:</strong> {show.phone}
                 </p>
               </div>
               <div className="col p-4 ">

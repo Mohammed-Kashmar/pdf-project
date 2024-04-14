@@ -43,6 +43,10 @@ const LastNews = () => {
   const [img, setImg] = useState(avatar);
   const [img2, setImg2] = useState(avatar);
   const [img3, setImg3] = useState(avatar);
+  const [showDelete, setShowDelete] = useState(false);
+
+  const handleCloseDelete = () => setShowDelete(null);
+  const handleShowDelete = (id) => setShowDelete(id);
 
   const handleClose = () => setShow(false);
   const handleShow = (post) => {
@@ -55,6 +59,7 @@ const LastNews = () => {
     setShow(post);
     setImgs(acc);
   };
+
 
   const handleCloseAddPost = () => setAddPost(false);
   const handleShowAddPost = () => setAddPost(true);
@@ -177,7 +182,7 @@ const LastNews = () => {
       setFormData(initialState);
       setImages_product([]);
       handleCloseAddPost();
-      fetchData();
+      fetchData("");
     } else {
       notify(response.data.message, "error");
     }
@@ -266,9 +271,12 @@ const LastNews = () => {
   };
 
   const handleDeletePost = async (id) => {
+    setIsPress(true);
     const response = await useDeleteData(`/admin_api/delete_post?postId=${id}`);
+    setIsPress(false)
     if (response.data.success === true) {
       notify(response.data.message, "success");
+      handleCloseDelete();
       fetchData('');
     } else {
       notify(response.data.message, "error");
@@ -311,10 +319,10 @@ const LastNews = () => {
                       <td>
                         <FaEye onClick={() => handleShow(post)} />
                         <MdEdit onClick={() => handleShowEditPost(post)} />
-                        <MdDelete onClick={() => handleDeletePost(post.id)} />
+                        <MdDelete onClick={() => handleShowDelete(post.id)} />
                       </td>
                     </tr>
-                  );
+                  ); 
                 })
               ) : (
                 <tr>
@@ -621,6 +629,38 @@ const LastNews = () => {
         </Form>
       </Modal>
 
+      <Modal show={showDelete} onHide={handleCloseDelete} centered>
+        <Modal.Header
+          className="my-5 d-flex justify-content-center"
+          style={{ paddingTop: "50px" }}
+        >
+          <Modal.Title> هل انت متأكد من حذف هذا الخبر؟</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer>
+          <div className="mb-5">
+            <button className="btn_cancel" onClick={handleCloseDelete}>
+              تجاهل
+            </button>
+
+            {isPress ? (
+              <button className="btn_save" disabled>
+                <Spinner className="m-auto" animation="border" role="status">
+                  `
+                </Spinner>
+              </button>
+            ) : (
+              <button
+                onClick={() => handleDeletePost(showDelete)}
+                className="btn_save"
+              >
+                نعم
+              </button>
+            )}
+          </div>
+
+          <br />
+        </Modal.Footer>
+      </Modal>
       <ToastContainer />
     </Fragment>
   );

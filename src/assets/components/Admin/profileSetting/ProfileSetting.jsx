@@ -28,11 +28,12 @@ export const ProfileSetting = () => {
   const [adminDetails, setAdminDetails] = useState("");
   // const [password, setPassword] = useState("");
   const [isPress, setIsPress] = useState("");
+  const userData = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await useGetData(
-        `/admin_api/show_admin_by_name?name=samirkh`
+        `/admin_api/show_admin_by_name?name=${userData.name}`
       );
       setAdminDetails(res);
       console.log(res);
@@ -140,7 +141,7 @@ export const ProfileSetting = () => {
     setIsPress(true);
 
     const response = await useInsertDataWithImage(
-      `/admin_api/update_admin?adminId=1`,
+      `/admin_api/update_admin?adminId=${userData.id}`,
       form
     );
     console.log(response.data);
@@ -334,6 +335,17 @@ export const ProfileSetting = () => {
                   </Col>
                 </Form.Group>
               </Row>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="pt-3 px-4" >
+              <p className="d-flex justify-content-start align-items-center gap-1"  style={{ flexDirection: "row-reverse" }}>
+                <strong>:ملاحظة</strong>
+                {`المساحة المتوفرة `}{" "}
+                <span className="storage">
+                  {adminDetails?.data?.data?.storage_size.toFixed(1) || 0}
+                </span>
+              </p>
             </Col>
           </Row>
           <Row style={{ flexDirection: "row-reverse" }}>
