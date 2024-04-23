@@ -1,0 +1,22 @@
+/* Style for Paragraphs inside Modal Body */
+.show_rate_details p {
+  margin-bottom: 10px !important;
+}
+.form_filter{
+  text-align: right;
+  margin-bottom: 10px !important;
+}
+.form_filter label {
+  width: 75px;
+  font-weight: bold;
+}
+.form_filter input {
+  border-radius: 8px !important;
+  padding: 3px !important;
+  border: 1px solid black;
+}
+
+.form-check {
+  padding: 3px !important;
+  text-align: center;
+}

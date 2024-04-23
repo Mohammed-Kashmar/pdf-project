@@ -1,0 +1,569 @@
+*{
+  font-family: "Almarai", sans-serif;
+}
+
+.imagenavbar{
+  width: 100%;
+  margin: 0;
+  position: relative;
+  height: 200px;
+  border-radius: 15px;
+
+}
+
+.imagenavbar img{
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  margin-top: 4px !important;
+}
+
+.socialmedia{
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.socialmedia div{
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  margin-top: 10px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialmedia img{
+  width: 11px;
+  height: 18px;
+}
+
+.logo{
+  position: absolute;
+  top: 7.5px;
+  right: 15px;
+  border-radius: 50%;
+}
+
+.logoo{
+  position: absolute;
+  top: 11.5px;
+  left: 15px;
+  /* border-radius: 50%; */
+}
+
+.logo img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.logoo img {
+  height: 30px;
+  width: 49px;
+}
+
+.name{
+  position: absolute;
+  top: 13.5px;
+  left: 40%;
+  color: white;
+  font-size: 20px;
+}
+
+.textlogo{
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  color: red;
+  border-radius: 50%;
+  bottom: -75px;
+  left: calc(50% - 75px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* font-size: 32px; */
+  font-weight: 700;
+}
+
+.textlogo img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.total{
+  display: flex;
+}
+
+.pdf{
+  text-align: center;
+}
+
+.pdfh1{
+  font-size: 30px;
+  font-weight: 800;
+  color: black;
+  margin-bottom: 30px !important;
+  margin-top: 30px !important;
+}
+
+.trip{
+  position: relative;
+  min-height: 300px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 200px;
+}
+
+.tripphoto{
+  height: 250px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-shadow:  0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.tripphoto img{
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+}
+
+.triptext{
+  /* width: 80%; */
+  /* margin-left: auto !important;
+  margin-right: auto !important; */
+  text-align: center;
+  margin-top: 5px !important;
+  cursor: pointer;
+}
+.R{
+  background: red;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.triptext h5{
+  color: red;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.triptext span{
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+}
+
+.posts{
+  text-align: center;
+}
+
+.view{
+  text-align: end;
+  margin-left: auto !important;
+  margin-bottom: 10px !important;
+}
+
+.toptext h1{
+  font-size: 24px;
+  font-weight: 700;
+  color: black;
+}
+
+.toptext span{
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(112, 112, 112, 1);
+}
+
+.view{
+  background-color:rgba(245, 245, 245, 1);
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px !important;
+  width: 100%;
+  /* margin-left: 10px !important; */
+}
+
+
+.view h5{
+  font-weight: 400;
+  font-size: 16px;
+  color: black;
+  margin-bottom: 10px !important;
+}
+.toptext {
+  margin-bottom: 5px !important;
+}
+
+.lastposte{
+  font-weight: 800;
+  font-size: 36px;
+  margin-bottom: 30px !important;
+  margin-top: 30px !important;
+}
+
+.imageposts{
+  width: 100%;
+  /* height: 300px; */
+}
+
+.imageposts img{
+  /* width: 100%;
+  height: 100%; */
+}
+
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: calc(100vh - 80px);
+  height: 300px;
+}
+
+.buttonformobile{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 50px !important;
+  display: none;
+}
+
+.buttonformobile div{
+  width: 150px;
+  cursor: pointer;
+  background-color: rgba(253, 1, 0, 1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  padding: 10px 20px !important;
+  font-size: 20px;
+}
+
+.buttonformobile div:hover{
+  background-color: rgb(227, 53, 53);
+}
+
+.postsandpdf{
+  width: 100%;
+  margin-top: 60px !important;
+}
+
+.detailspdf{
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  padding: 0 20px !important;
+  margin-top: 100px !important;
+}
+
+.detailstitle{
+  color: rgba(253, 1, 0, 1);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.detailsdescription{
+  font-size: 16px;
+  font-weight: 400;
+}
+
+
+
+.update{
+  display: flex;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 25px;
+  color: rgba(253, 1, 0, 1);
+  border-bottom: none;
+  padding-top: 10px;
+}
+
+.input{
+  width: 90%;
+  border-radius: 50px;
+  text-align: end;
+  margin: auto !important;
+  font-weight: 300;
+  line-height: 25px;
+  font-size: 20px;
+}
+
+.selec{
+  border-radius: 50px;
+}
+
+.button-modal{
+  padding: 20px 10px !important;
+  border: none;
+  width: 100px;
+  height: 40px;
+  border-radius: 50px;
+  color: rgba(112, 112, 112, 1);
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 25px;
+  background-color: white;
+  border: 1px solid rgba(112, 112, 112, 1);
+  margin-left: 15px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 4px 0 #ccc;
+}
+
+.button-modal:hover{
+  background-color: rgba(253, 1, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+.bb{
+  text-align: center;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.numbersyria {
+  border-radius: 60px 0 0 60px;
+  /* background-color: rgba(255, 0, 0, 1); */
+  color: white;
+  /* padding: 8px 10px !important; */
+  position: absolute;
+  left: 23px;
+  width: 131px;
+  height: 44px;
+}
+.modal-content{
+  border-radius: 25px;
+}
+
+.radio-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid red; /* لون الحدود الخارجية */
+}
+
+.radio-input:checked {
+  background-color: red; 
+  border: none;/* لون النقطة داخل الدائرة عند التحديد */
+}
+
+
+.react-datepicker__input-container {
+  position: relative;
+}
+
+.react-datepicker__input-container input {
+  border: 2px solid red; /* لون الحدود */
+  border-radius: 30px;
+  padding: 5px; /* تباعد داخلي */
+}
+
+.react-datepicker__input-container input{
+text-align: end;
+}
+
+.rit{
+  background-color: red;
+  color: white;
+  font-size: 14px;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.master{
+  background-color: rgba(253, 1, 0, 1);
+  height: 55px;
+  border-radius: 0px 0px 0px 30px;
+}
+
+.wasem{
+  top: 17.5px;
+  position: absolute;
+  right: 15px;
+}
+
+.wasemimg{
+  width: 40px;
+  height: 40px;
+}
+
+.dropdown-toggle::after{
+  display: none !important;
+}
+
+.drop_down {
+  background: #FF0000 !important;
+  min-width: 100% !important;
+  margin-left: 3px !important;
+  border-radius: 12px !important;
+}
+
+.dorp_down_item {
+  padding: 5px 0 !important;
+  text-align: center !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop{
+  background: #faf8f8 !important;
+}
+
+.dorp_down_item:hover {
+  background: transparent !important;
+}
+
+.dorp_down_item img {
+  margin: 0 !important;
+}
+
+.btn{
+  border: none !important;
+}
+
+.dropdown-menu{
+  border: none !important;
+}
+
+.namepdfposts{
+  position: absolute;
+  right: 80px;
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  top: 20px;
+  cursor: pointer;
+}
+
+.rating{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  bottom: -37px;
+  width: 100%;
+  /* padding-right: 10px !important;
+  padding-left: 10px !important; */
+}
+
+.navbar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  overflow: hidden;
+  z-index: 1;
+  width: 100%;
+  margin: auto;
+  bottom: 0;
+  border-bottom: solid 1px var(--primary-color);
+  /* opacity: 0.9; */
+  bottom: 0;
+  box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8),
+    -12px 0 8px -4px rgba(31, 73, 125, 0.8);
+  box-shadow: 0 9px 0px 0px white, 0 -9px 0px 0px white,
+    12px 0 15px -4px rgba(31, 73, 125, 0.8),
+    -12px 0 15px -4px rgba(31, 73, 125, 0.8);
+    background-color: #FF0000;
+}
+
+.icons{
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.icons img{
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 480px) {
+  .tripphoto{
+    background-color: #aaa;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  .posts{
+    margin-top: 50px !important;
+  }
+  .textlogo {
+    left: 34%;
+  }
+  .buttonformobile{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* margin-top: 50px !important; */
+    margin-top: 80px !important;
+  }
+  .postsandpdf{
+    width: 100%;
+    margin-top: 0px !important;
+  }
+
+  .pdf{
+    margin-top: 30px !important;
+  }
+  .numbersyria{
+    margin-left: -5px !important;
+  }
+  .trip{
+    width: 180px;
+  }
+}
+
+.backgorund_admin {
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(255, 197, 196, 0) 0%, #FFC5C4 100%), url('./images/logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.radioGender {
+  margin-right: 30px !important;
+}
+.radioGender .form-check {
+  margin-left: 10px !important;
+}
+.radioGender .form-check .form-check-label{
+  margin-left: 10px !important;
+}
+.radioGender .gen {
+  margin-left: 50px !important;
+}
+

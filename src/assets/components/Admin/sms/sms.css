@@ -1,0 +1,7 @@
+.down_sms {
+  background: rgba(255, 197, 196, 0.5);
+  width: 171px;
+  border-radius: 8px;
+  padding: 4px !important;
+  cursor: pointer;
+}

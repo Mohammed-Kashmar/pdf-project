@@ -1,0 +1,124 @@
+
+* {
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* .setting {
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(255, 197, 196, 0) 0%, #FFC5C4 100%), url('../../../../images//logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+} */
+
+.setting .header {
+  margin: 3rem 0 !important;
+}
+
+.setting .form-label {
+  text-align: right;
+  padding-right: 16px !important;
+}
+.setting .form-control {
+  outline: unset !important; 
+  border-radius: 30px !important;
+  padding: 10px !important;
+  border: 1px solid rgba(112, 112, 112, 0.44) !important;
+}
+.setting .form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(112, 112, 112, 0.2) !important;
+}
+#upload-photo{
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+#upload-photo-logo{
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+
+.upload_icon{
+  background-color: white;
+  width: 300px;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(112, 112, 112, 0.44);
+  border-radius: 16px;
+}
+.img_label {
+  width: 300px !important;
+  height: 125px;
+}
+.upload_icon_logo {
+  background-color: white;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(112, 112, 112, 0.44);
+  border-radius: 50%;
+}
+.btn_save {
+  width: 120px;
+  height: 40px;
+  background: rgba(253, 1, 0, 1);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+  color: white;
+  margin-left: 25px !important;
+  border-radius: 25px;
+  border: none;
+}
+.btn_cancel {
+  width: 120px;
+  height: 40px;
+  background-color: inherit;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(112, 112, 112, 1);
+  border-radius: 25px;
+}
+.storage {
+  background: rgba(253, 1, 0, 1);
+  padding: 5px 10px !important;
+  border-radius: 8px;
+  color: white;
+}
+
+@media (max-width: 1023px) {
+  .upload_icon{ 
+    width: 200px !important;
+  }
+  .img_label {
+    width: 200px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .setting .header {
+    font-size: 18px !important;
+    margin: 1rem 0 !important;
+  }
+  #upload-photo{
+    width: 50%;
+  }
+  .setting .form-label {
+    padding-bottom: 10px !important;
+    padding-right: 10px !important;
+  }
+  .setting .form-control {
+    margin: auto !important;
+    width: 90%;
+  }
+  .upload_icon{ 
+    width: 300px !important;
+  }
+  .img_label {
+    width: 250px !important;
+  }
+}
