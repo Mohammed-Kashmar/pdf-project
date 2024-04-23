@@ -17,7 +17,7 @@ import {
 } from "../../../../hooks/useInsertData";
 import { ToastContainer } from "react-toastify";
 import avatar from "../../../../images/avatar.png";
-import useDeleteData from "../../../../hooks/useDeleteData";
+import {useDeleteData} from "../../../../hooks/useDeleteData";
 import Pagination from "../utility/pagination/Pagination";
 // import { useDeleteData } from "../../../../hooks/useDeleteData";
 

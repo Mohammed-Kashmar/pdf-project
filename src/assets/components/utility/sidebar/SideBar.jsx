@@ -31,48 +31,50 @@ const SideBar = () => {
         <img src={sidebar} alt="sidebar" />
       </div>
       <div className="all_links">
-        <Link to="">
-          <p className=""> الصفحة الرئيسية </p>
-          <img src={vector_home} alt="" />
-        </Link>
+      {
+        // <Link to="">
+        //   <p className=""> الصفحة الرئيسية </p>
+        //   <img src={vector_home} alt="" />
+        // </Link>
+      }
         <Link
-          to="/profile_setting"
+          to="/admin/profile_setting"
           className={`${
-            location.pathname === "/profile_setting" ? "clicked" : ""
+            location.pathname === "/admin/profile_setting" ? "clicked" : ""
           }`}
         >
           <p className=""> الإعدادات الشخصية </p>
           <img src={vector_setting} alt="" />
         </Link>
         <Link
-          to="/news"
-          className={`${location.pathname === "/news" ? "clicked" : ""}`}
+          to="/admin/news"
+          className={`${location.pathname === "/admin/news" ? "clicked" : ""}`}
         >
           <p className=""> آخر الأخبار </p>
           <img src={vector_news} alt="" />
         </Link>
         <Link
-          to="/rates"
-          className={`${location.pathname === "/rates" || location.pathname.startsWith("/rates") ? "clicked" : ""}`}
+          to="/admin/rates"
+          className={`${location.pathname === "/admin/rates" || location.pathname.startsWith("/admin/rates") ? "clicked" : ""}`}
         >
           <p className=""> التقييمات </p>
           <img src={vector_rate} alt="" />
         </Link>
         <Link
-          to="/pdfs"
-          className={`${location.pathname === "/pdfs" ? "clicked" : ""}`}
+          to="/admin/pdfs"
+          className={`${location.pathname === "/admin/pdfs" ? "clicked" : ""}`}
         >
           <p className=""> PDF إضافة </p>
           <img src={vector_pdf} alt="" />
         </Link>
         {userData.is_sms === 1 && (
-          <Link to="/sms">
+          <Link to="/admin/sms">
             <p className=""> الرسائل </p>
             <FaCommentSms />
           </Link>
         )}
 
-        <Link to="/login" onClick={handleLogout}>
+        <Link to="/admin/login" onClick={handleLogout}>
           <p className=" text-danger"> تسجيل الخروج </p>
           <img src={vector_logout} alt="" />
         </Link>

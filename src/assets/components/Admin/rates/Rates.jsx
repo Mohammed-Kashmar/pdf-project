@@ -6,6 +6,7 @@ import { useGetData } from "../../../../hooks/useGetData";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import Pagination from "../utility/pagination/Pagination";
+import './Rates.css'
 
 function Rates() {
   const [loadingFirst, setLoadingFirst] = useState(true);
@@ -27,9 +28,8 @@ function Rates() {
     console.log(res);
   };
   useEffect(() => {
-    fetchData('');
+    fetchData("");
   }, []);
-
 
   const onPress = async (page) => {
     fetchData(page);
@@ -39,7 +39,7 @@ function Rates() {
   return (
     <div>
       <NavBarRed />
-      <AdminHeader text=" التقييمات" />
+      <AdminHeader text=" كل التقييمات" />
 
       <div className="table-responsive table_container">
         <table className="table">
@@ -54,17 +54,22 @@ function Rates() {
               {rates && rates.data && rates.data.length > 0 ? (
                 rates.data.map((rate) => {
                   return (
-                    <tr key={rate.id}>
-                      <td>
+                    <tr key={rate.id}  className=''>
+                      <td style={{ textAlign: "center" }} className='clicked_td'>
                         <Link
-                          style={{ textDecoration: "none", color: "black" }}
-                          to={`/rates/${rate.id}`}
+                          style={{
+                            textDecoration: "none",
+                            color: "black",
+                            display: 'block',
+                            
+                          }}
+                          
+                          to={`/admin/rates/${rate.id}`}
                         >
                           {rate.title}
                         </Link>
                       </td>
-
-                      <td className="d-flex justify-content-center">
+                      <td className="d-flex justify-content-center" >
                         <ReactStars
                           count={5}
                           value={rate.average_rate}
@@ -102,7 +107,7 @@ function Rates() {
           )}
         </table>
       </div>
-          
+
       {rates.last_page > 1 ? (
         <Pagination onPress={onPress} pageCount={rates.last_page} />
       ) : null}

@@ -11,7 +11,7 @@ import { LuPlus } from "react-icons/lu";
 import notify from "../../utility/useNotification";
 import { ToastContainer } from "react-toastify";
 import { useInsertDataWithImage } from "../../../../hooks/useInsertData";
-import useDeleteData from "../../../../hooks/useDeleteData";
+import { useDeleteData } from "../../../../hooks/useDeleteData";
 import Pagination from "../utility/pagination/Pagination";
 
 const initialState = {
@@ -20,6 +20,8 @@ const initialState = {
   description: "",
   cover: null,
   location: null,
+  is_lock: "0",
+  password: "",
 };
 const Pdf = () => {
   const [formData, setFormData] = useState(initialState);
@@ -35,9 +37,8 @@ const Pdf = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (pdf) => {
-console.log(pdf)
+    console.log(pdf);
     setShow(pdf);
-
   };
   const handleCloseDelete = () => setShowDelete(null);
   const handleShowDelete = (id) => setShowDelete(id);
@@ -62,7 +63,9 @@ console.log(pdf)
   const userData = JSON.parse(localStorage.getItem("user"));
   const fetchData = async (page) => {
     setLoadingFirst(true);
-    const res = await useGetData(`/admin_api/show_pdfs?adminId=${userData.id}&page=${page}`);
+    const res = await useGetData(
+      `/admin_api/show_pdfs?adminId=${userData.id}&page=${page}`
+    );
     setLoadingFirst(false);
     // setPdfs(res);
     if (res.status === 200) {
@@ -73,7 +76,7 @@ console.log(pdf)
     console.log(res);
   };
   useEffect(() => {
-    fetchData('');
+    fetchData("");
   }, []);
 
   const handleChange = (e) => {
@@ -103,6 +106,13 @@ console.log(pdf)
       return;
     }
 
+    if (formData.is_lock === "1") {
+      if (formData.password.length < 4 ) {
+        notify("The password must be 4 charachter", "error");
+        return;
+      }
+    }
+
     let updatedFormData = { ...formData };
     updatedFormData = {
       ...updatedFormData,
@@ -119,7 +129,7 @@ console.log(pdf)
       setFormData(initialState);
       handleCloseAddPdf();
       setImg("");
-      fetchData('');
+      fetchData("");
     } else {
       notify(response.data.message, "error");
     }
@@ -145,7 +155,7 @@ console.log(pdf)
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseEditPdf();
-      fetchData('');
+      fetchData("");
     } else {
       notify(response.data.message, "error");
     }
@@ -159,7 +169,7 @@ console.log(pdf)
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseDelete();
-      fetchData('');
+      fetchData("");
     } else {
       notify(response.data.message, "error");
     }
@@ -230,29 +240,40 @@ console.log(pdf)
         <Pagination onPress={onPress} pageCount={pdfs.last_page} />
       ) : null}
 
-
       <Modal show={show} onHide={handleClose} centered size="lg">
-      <Modal.Header className="d-flex justify-content-center">
-        <Modal.Title>{show.title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="container">
-          <div className="row">
-            <div className="col p-4 d-flex flex-column justify-content-center align-items-center">
-              <img
-                src={`https://api-rating.watanyia.com/storage/${show.cover}`} alt="" style={{width: '300px'}}
-              />
-              
-
-            </div>
-            <div className="col p-4 d-flex flex-column justify-content-start align-items-center">
-            <p><strong>حجم الملف:</strong>{show.size_of_file}</p>
-              <p className="text-capitalize"><strong>الوصف:</strong> {show.description}</p>
+        <Modal.Header className="d-flex justify-content-center">
+          <Modal.Title>تفاصيل العقد</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="container">
+            <div className="row">
+              <div className="col p-4 d-flex flex-column justify-content-center align-items-center">
+                <img
+                  src={`https://api-rating.watanyia.com/storage/${show.cover}`}
+                  alt=""
+                  style={{ width: "300px" }}
+                />
+              </div>
+              <div className="col p-4 d-flex flex-column justify-content-start align-items-center">
+                <p className="py-1  d-flex flex-row-reverse">
+                  <strong className="mx-1">:العنوان</strong>
+                  {show.title}
+                </p>
+                <p className="py-1">
+                  <strong className="mx-1">حجم الملف:</strong>
+                  {show.size_of_file}
+                </p>
+                <div className=" py-1  d-flex flex-row-reverse">
+                  <strong className="mx-1">:الوصف</strong> <p className="w-100 text-break">{show.description}</p>
+                </div>
+                <p className=" py-1">
+                  <strong className="mx-1">الخصوصية:</strong> {show.is_lock === 0 ? 'عام' : "خاص"}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
       <Modal
         show={addPdf}
         onHide={handleCloseAddPdf}
@@ -353,6 +374,65 @@ console.log(pdf)
                 />
               </Col>
             </Form.Group>
+
+            <Form.Group
+              as={Row}
+              className="mb-3 align-items-center"
+              style={{ flexDirection: "row-reverse" }}
+            >
+              <Form.Label column className="col-3">
+                :الخصوصية
+              </Form.Label>
+              <Col className="col-9 d-flex justify-content-end ">
+                <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
+                  <label className="form-check-label mx-2" htmlFor="no">
+                    عام
+                  </label>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="no"
+                    value={0}
+                    name="is_lock"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-check form-check-inline d-flex flex-row-reverse align-items-center">
+                  <label className="form-check-label mx-2" htmlFor="yes">
+                    خاص
+                  </label>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="yes"
+                    value={1}
+                    name="is_lock"
+                    onChange={handleChange}
+                  />
+                </div>
+              </Col>
+            </Form.Group>
+
+            {formData.is_lock === "1" && (
+              <Form.Group
+                as={Row}
+                className="mb-3 align-items-center"
+                style={{ flexDirection: "row-reverse" }}
+              >
+                <Form.Label column className="col-3">
+                  :كلمة السر
+                </Form.Label>
+                <Col className="col-9">
+                  <Form.Control
+                    type="text"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    maxLength={4}
+                  />
+                </Col>
+              </Form.Group>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <button className="btn_cancel" onClick={handleCloseAddPdf}>

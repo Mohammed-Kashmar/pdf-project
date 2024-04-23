@@ -1,0 +1,12 @@
+.admin_details {
+  padding: 20px 30px !important;
+
+}
+.admin_details p {
+  padding: 10px !important;
+  margin-bottom: 10px;
+  border: 1px solid #aaa;
+}
+.admin_details p strong {
+  margin-left: 5px !important;
+}
