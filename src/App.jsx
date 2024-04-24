@@ -38,7 +38,7 @@ function App() {
   //   }
   // }, []);
 
-  console.log(isSuperAdmin)
+  // console.log(isSuperAdmin)
   return (
     <BrowserRouter>
       <Routes>

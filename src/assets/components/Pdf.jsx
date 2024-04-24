@@ -162,11 +162,11 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
 
   const handleClickSecond = async () => {
     if (
-      formData.gender === "" ||
-      formData.birthday === "" ||
+      // formData.gender === "" ||
+      // formData.birthday === "" ||
       formData.name === ""
     ) {
-      toast.warn("Enter All Inputs");
+      toast.warn("Enter Name Please");
       return;
     } else {
       try{

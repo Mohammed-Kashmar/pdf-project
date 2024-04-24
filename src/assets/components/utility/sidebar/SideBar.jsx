@@ -32,10 +32,10 @@ const SideBar = () => {
       </div>
       <div className="all_links">
       {
-        // <Link to="">
-        //   <p className=""> الصفحة الرئيسية </p>
-        //   <img src={vector_home} alt="" />
-        // </Link>
+        <Link to={`/${userData.name}`}>
+          <p className=""> الصفحة الرئيسية </p>
+          <img src={vector_home} alt="" />
+        </Link>
       }
         <Link
           to="/admin/profile_setting"

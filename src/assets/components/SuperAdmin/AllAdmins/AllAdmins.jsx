@@ -19,6 +19,7 @@ import { useGetDataSuperAdmin } from "../../../../hooks/useGetDataSuperAdmin";
 import { ToastContainer } from "react-toastify";
 import { useDeleteDataSuperAdmin } from "../../../../hooks/useDeleteData";
 import { FaCommentSms } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -968,39 +969,39 @@ export default function AllAdmins() {
               </Col>
             </Form.Group>
             <Form.Group
-            as={Row}
-            className="mb-3 align-items-center"
-            style={{ flexDirection: "row-reverse" }}
-          >
-            <Form.Label column className="col-3">
-              :الواتساب
-            </Form.Label>
-            <Col className="col-9">
-              <Form.Control
-                type="number"
-                name="whatsapp"
-                value={formData.whatsapp}
-                onChange={handleChange}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group
-            as={Row}
-            className="mb-3 align-items-center"
-            style={{ flexDirection: "row-reverse" }}
-          >
-            <Form.Label column className="col-3">
-              :العنوان
-            </Form.Label>
-            <Col className="col-9">
-              <Form.Control
-                type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-              />
-            </Col>
-          </Form.Group>
+              as={Row}
+              className="mb-3 align-items-center"
+              style={{ flexDirection: "row-reverse" }}
+            >
+              <Form.Label column className="col-3">
+                :الواتساب
+              </Form.Label>
+              <Col className="col-9">
+                <Form.Control
+                  type="number"
+                  name="whatsapp"
+                  value={formData.whatsapp}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group
+              as={Row}
+              className="mb-3 align-items-center"
+              style={{ flexDirection: "row-reverse" }}
+            >
+              <Form.Label column className="col-3">
+                :العنوان
+              </Form.Label>
+              <Col className="col-9">
+                <Form.Control
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Form.Group>
 
             <Form.Group
               as={Row}
@@ -1423,6 +1424,13 @@ export default function AllAdmins() {
               <strong>الرسائل: </strong>
               {formData.is_sms.toString() === "1" ? "نعم" : "لاء"}
             </p>
+            <p>
+              <strong>الرابط: </strong>
+              <Link
+                to={`https://pdfapp.levantsy.com/${formData.name}`}
+                target="_blank"
+              >{`https://pdfapp.levantsy.com/${formData.name}`}</Link>
+            </p>
             {formData.is_sms.toString() === "1" && (
               <div>
                 <p>
@@ -1505,7 +1513,11 @@ export default function AllAdmins() {
           </Modal.Body>
           <Modal.Footer>
             <div className="mb-5">
-              <button className="btn_cancel" type="button" onClick={handleCloseAddSms}>
+              <button
+                className="btn_cancel"
+                type="button"
+                onClick={handleCloseAddSms}
+              >
                 تجاهل
               </button>
 
