@@ -10,7 +10,7 @@ import logo from "../../../images/logo.png";
 import pdf from "../../../images/PDF.png";
 import "./LoginPage.css";
 
-const LoginPage = () => {
+const SuperAdminLoginPage = () => {
   const [language, setLanguage] = useState("ar");
   const [user_name, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -39,7 +39,7 @@ const LoginPage = () => {
     setloading(true);
     setIsPress(true);
 
-    const response = await useInsertData(`/admin_api/login?model=Admin`, {
+    const response = await useInsertData(`/admin_api/login?model=SuperAdmin`, {
       user_name,
       password,
     });
@@ -52,17 +52,12 @@ const LoginPage = () => {
   useEffect(() => {
     if (loading === false) {
       if (resLogin && resLogin.success === true) {
-        localStorage.setItem("token", resLogin.data.token);
-        localStorage.setItem("user",  JSON.stringify(resLogin.data));
+        localStorage.setItem("superAdmin",  JSON.stringify(resLogin.data));
         notify(resLogin.message, "success");
         setUsername("");
         setPassword("");
         setTimeout(() => {
-<<<<<<< HEAD
-          window.location.href = "/news";
-=======
-          window.location.href = "/admin/news";
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
+          window.location.href = "/super_admin/all_admins";
         }, 1500);
       } else {
         notify(resLogin.message, "error");
@@ -137,4 +132,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SuperAdminLoginPage;

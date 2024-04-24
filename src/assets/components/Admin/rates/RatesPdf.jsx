@@ -7,7 +7,11 @@ import { Fragment, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { useGetData } from "../../../../hooks/useGetData";
 import "./RatesPdf.css";
+<<<<<<< HEAD
 import { useParams } from "react-router-dom";
+=======
+import { Link, useParams } from "react-router-dom";
+>>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
 import Pagination from "../utility/pagination/Pagination";
 
 export default function RatesPdf() {
@@ -63,7 +67,12 @@ export default function RatesPdf() {
   return (
     <div>
       <NavBarRed />
+<<<<<<< HEAD
       <AdminHeader text=" التقييمات" />
+=======
+      <Link style={{textDecoration: 'none', color: 'black'}} to="/admin/rates"><AdminHeader text=" كل التقييمات / تقييم ملف معين" /></Link>
+      
+>>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
 
       <Row className="px-4 pb-4" style={{ flexDirection: "row-reverse" }}>
         <Col className="col-12 col-lg-3">

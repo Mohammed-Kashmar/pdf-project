@@ -14,7 +14,10 @@
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.8",
     "file-saver": "^2.0.5",
+<<<<<<< HEAD
     "pdfjs-dist": "^4.1.392",
+=======
+>>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
     "react": "^18.2.0",
     "react-axios": "^2.0.6",
     "react-bootstrap": "^2.10.2",

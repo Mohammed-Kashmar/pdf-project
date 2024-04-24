@@ -1,0 +1,5 @@
+.clicked_td:hover {
+  background: rgba(255, 197, 196, 0.5) !important;
+  /* scale: 1.05; */
+  transition: 0.3s !important;
+}
