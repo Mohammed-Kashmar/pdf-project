@@ -6,10 +6,7 @@ import { useGetData } from "../../../../hooks/useGetData";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import Pagination from "../utility/pagination/Pagination";
-<<<<<<< HEAD
-=======
 import './Rates.css'
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
 
 function Rates() {
   const [loadingFirst, setLoadingFirst] = useState(true);
@@ -31,16 +28,9 @@ function Rates() {
     console.log(res);
   };
   useEffect(() => {
-<<<<<<< HEAD
-    fetchData('');
-  }, []);
-
-
-=======
     fetchData("");
   }, []);
 
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
   const onPress = async (page) => {
     fetchData(page);
   };
@@ -49,11 +39,7 @@ function Rates() {
   return (
     <div>
       <NavBarRed />
-<<<<<<< HEAD
-      <AdminHeader text=" التقييمات" />
-=======
       <AdminHeader text=" كل التقييمات" />
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
 
       <div className="table-responsive table_container">
         <table className="table">
@@ -68,13 +54,6 @@ function Rates() {
               {rates && rates.data && rates.data.length > 0 ? (
                 rates.data.map((rate) => {
                   return (
-<<<<<<< HEAD
-                    <tr key={rate.id}>
-                      <td>
-                        <Link
-                          style={{ textDecoration: "none", color: "black" }}
-                          to={`/rates/${rate.id}`}
-=======
                     <tr key={rate.id}  className=''>
                       <td style={{ textAlign: "center" }} className='clicked_td'>
                         <Link
@@ -86,17 +65,11 @@ function Rates() {
                           }}
                           
                           to={`/admin/rates/${rate.id}`}
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
                         >
                           {rate.title}
                         </Link>
                       </td>
-<<<<<<< HEAD
-
-                      <td className="d-flex justify-content-center">
-=======
                       <td className="d-flex justify-content-center" >
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
                         <ReactStars
                           count={5}
                           value={rate.average_rate}
@@ -134,11 +107,6 @@ function Rates() {
           )}
         </table>
       </div>
-<<<<<<< HEAD
-          
-=======
-
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
       {rates.last_page > 1 ? (
         <Pagination onPress={onPress} pageCount={rates.last_page} />
       ) : null}

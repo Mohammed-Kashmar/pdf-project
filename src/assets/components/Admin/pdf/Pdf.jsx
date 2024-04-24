@@ -11,11 +11,7 @@ import { LuPlus } from "react-icons/lu";
 import notify from "../../utility/useNotification";
 import { ToastContainer } from "react-toastify";
 import { useInsertDataWithImage } from "../../../../hooks/useInsertData";
-<<<<<<< HEAD
-import useDeleteData from "../../../../hooks/useDeleteData";
-=======
 import { useDeleteData } from "../../../../hooks/useDeleteData";
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
 import Pagination from "../utility/pagination/Pagination";
 
 const initialState = {
@@ -24,11 +20,8 @@ const initialState = {
   description: "",
   cover: null,
   location: null,
-<<<<<<< HEAD
-=======
   is_lock: "0",
   password: "",
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
 };
 const Pdf = () => {
   const [formData, setFormData] = useState(initialState);
@@ -44,14 +37,8 @@ const Pdf = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (pdf) => {
-<<<<<<< HEAD
-console.log(pdf)
-    setShow(pdf);
-
-=======
     console.log(pdf);
     setShow(pdf);
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
   };
   const handleCloseDelete = () => setShowDelete(null);
   const handleShowDelete = (id) => setShowDelete(id);
@@ -76,13 +63,9 @@ console.log(pdf)
   const userData = JSON.parse(localStorage.getItem("user"));
   const fetchData = async (page) => {
     setLoadingFirst(true);
-<<<<<<< HEAD
-    const res = await useGetData(`/admin_api/show_pdfs?adminId=${userData.id}&page=${page}`);
-=======
     const res = await useGetData(
       `/admin_api/show_pdfs?adminId=${userData.id}&page=${page}`
     );
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
     setLoadingFirst(false);
     // setPdfs(res);
     if (res.status === 200) {
@@ -93,11 +76,7 @@ console.log(pdf)
     console.log(res);
   };
   useEffect(() => {
-<<<<<<< HEAD
-    fetchData('');
-=======
     fetchData("");
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
   }, []);
 
   const handleChange = (e) => {
@@ -127,8 +106,6 @@ console.log(pdf)
       return;
     }
 
-<<<<<<< HEAD
-=======
     if (formData.is_lock === "1") {
       if (formData.password.length < 4 ) {
         notify("The password must be 4 charachter", "error");
@@ -136,7 +113,6 @@ console.log(pdf)
       }
     }
 
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
     let updatedFormData = { ...formData };
     updatedFormData = {
       ...updatedFormData,
@@ -153,11 +129,7 @@ console.log(pdf)
       setFormData(initialState);
       handleCloseAddPdf();
       setImg("");
-<<<<<<< HEAD
-      fetchData('');
-=======
       fetchData("");
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
     } else {
       notify(response.data.message, "error");
     }
@@ -183,11 +155,7 @@ console.log(pdf)
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseEditPdf();
-<<<<<<< HEAD
-      fetchData('');
-=======
       fetchData("");
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
     } else {
       notify(response.data.message, "error");
     }
@@ -201,11 +169,7 @@ console.log(pdf)
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseDelete();
-<<<<<<< HEAD
-      fetchData('');
-=======
       fetchData("");
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
     } else {
       notify(response.data.message, "error");
     }
@@ -276,31 +240,6 @@ console.log(pdf)
         <Pagination onPress={onPress} pageCount={pdfs.last_page} />
       ) : null}
 
-<<<<<<< HEAD
-
-      <Modal show={show} onHide={handleClose} centered size="lg">
-      <Modal.Header className="d-flex justify-content-center">
-        <Modal.Title>{show.title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="container">
-          <div className="row">
-            <div className="col p-4 d-flex flex-column justify-content-center align-items-center">
-              <img
-                src={`https://api-rating.watanyia.com/storage/${show.cover}`} alt="" style={{width: '300px'}}
-              />
-              
-
-            </div>
-            <div className="col p-4 d-flex flex-column justify-content-start align-items-center">
-            <p><strong>حجم الملف:</strong>{show.size_of_file}</p>
-              <p className="text-capitalize"><strong>الوصف:</strong> {show.description}</p>
-            </div>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
-=======
       <Modal show={show} onHide={handleClose} centered size="lg">
         <Modal.Header className="d-flex justify-content-center">
           <Modal.Title>تفاصيل العقد</Modal.Title>
@@ -335,7 +274,6 @@ console.log(pdf)
           </div>
         </Modal.Body>
       </Modal>
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
       <Modal
         show={addPdf}
         onHide={handleCloseAddPdf}
@@ -436,8 +374,6 @@ console.log(pdf)
                 />
               </Col>
             </Form.Group>
-<<<<<<< HEAD
-=======
 
             <Form.Group
               as={Row}
@@ -497,7 +433,6 @@ console.log(pdf)
                 </Col>
               </Form.Group>
             )}
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
           </Modal.Body>
           <Modal.Footer>
             <button className="btn_cancel" onClick={handleCloseAddPdf}>

@@ -58,11 +58,7 @@ const LoginPage = () => {
         setUsername("");
         setPassword("");
         setTimeout(() => {
-<<<<<<< HEAD
-          window.location.href = "/news";
-=======
           window.location.href = "/admin/news";
->>>>>>> 3f12f8fce59fac6b2a69993ea5b8d5085ab235a7
         }, 1500);
       } else {
         notify(resLogin.message, "error");
