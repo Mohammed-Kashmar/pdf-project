@@ -53,16 +53,16 @@ const Pdf = () => {
   const handleCloseEditPdf = () => setEditPdf(false);
   const handleShowEditPdf = async (pdf) => {
     setEditPdf(pdf);
-    setImg("");
-    const res = await useGetData(`/admin_api/show_one_pdf?pdfId=${pdf.id}`);
-    console.log(res);
+    // setImg("");
+    // const res = await useGetData(`/admin_api/show_one_pdf?pdfId=${pdf.id}`);
+    // console.log(res);
     setFormData({
-      title: res.data.data.title || initialState.title,
-      description: res.data.data.description || initialState.description,
+      title: pdf.title || initialState.title,
+      description: pdf.description || initialState.description,
       cover: null,
-      is_lock: res.data.data.is_lock || initialState.is_lock,
+      is_lock: pdf.is_lock || initialState.is_lock,
     });
-    setImg(`https://api-rating.watanyia.com/storage/${res.data.data.cover}`);
+    setImg(`https://api-rating.watanyia.com/storage/${pdf.cover}`);
   };
 
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -585,7 +585,7 @@ const Pdf = () => {
                 </div>
               </Col>
             </Form.Group>
-            {formData.is_lock === "1" && (
+            {formData.is_lock.toString() === "1" && (
               <Form.Group
                 as={Row}
                 className="mb-3 align-items-center"
