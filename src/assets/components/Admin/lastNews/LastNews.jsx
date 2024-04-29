@@ -62,7 +62,11 @@ const LastNews = () => {
 
 
   const handleCloseAddPost = () => setAddPost(false);
-  const handleShowAddPost = () => setAddPost(true);
+  const handleShowAddPost = () => {
+    setFormData(initialState);
+    setImages_product([]);
+    setAddPost(true);
+  };
 
   const handleCloseEditPost = () => setEditPost(false);
   const handleShowEditPost = async (post) => {
@@ -72,6 +76,7 @@ const LastNews = () => {
     setImg3(avatar);
     const res = await useGetData(`/admin_api/show_one_post?postId=${post.id}`);
     console.log(res);
+    setEditPost(res.data.data);
     setFormData({
       title: res.data.data.title || initialState.title,
       description: res.data.data.description || initialState.description,
@@ -241,10 +246,12 @@ const LastNews = () => {
     let updatedFormData = { ...formData };
     delete updatedFormData["images[0]"];
 
+    setIsPress(true);
     const responseOne = await useInsertData(
       `/admin_api/update_post?postId=${editPost.id}`,
       updatedFormData
     );
+    setIsPress(false);
     if (responseOne.data.success === true) {
       notify(responseOne.data.message, "success");
       handleCloseEditPost();
@@ -537,21 +544,27 @@ const LastNews = () => {
                   x
                 </label>
 
-                <label htmlFor="upload-photo">
-                  <img
-                    src={img}
-                    alt="click"
-                    height="100px"
-                    width="120px"
-                    style={{ cursor: "pointer" }}
-                  ></img>
-                </label>
-                <input
-                  type="file"
-                  name="photo"
-                  onChange={onImageChange}
-                  id="upload-photo"
-                />
+                {img === avatar ? (
+                  <Fragment>
+                    <label htmlFor="upload-photo">
+                      <img
+                        src={img}
+                        alt="click"
+                        height="100px"
+                        width="120px"
+                        style={{ cursor: "pointer" }}
+                      ></img>
+                    </label>
+                    <input
+                      type="file"
+                      name="photo"
+                      onChange={onImageChange}
+                      id="upload-photo"
+                    />
+                  </Fragment>
+                ) : (
+                  <img src={img} alt="" height="100px" width="120px"></img>
+                )}
               </Col>
 
               <Col className="d-flex flex-column justify-content-start align-items-center">
@@ -563,21 +576,27 @@ const LastNews = () => {
                 >
                   x
                 </label>
-                <label htmlFor="upload-photo2">
-                  <img
-                    src={img2}
-                    alt="click"
-                    height="100px"
-                    width="120px"
-                    style={{ cursor: "pointer" }}
-                  ></img>
-                </label>
-                <input
-                  type="file"
-                  name="photo"
-                  onChange={onImageChange2}
-                  id="upload-photo2"
-                />
+                {img2 === avatar ? (
+                  <Fragment>
+                    <label htmlFor="upload-photo2">
+                      <img
+                        src={img2}
+                        alt="click"
+                        height="100px"
+                        width="120px"
+                        style={{ cursor: "pointer" }}
+                      ></img>
+                    </label>
+                    <input
+                      type="file"
+                      name="photo"
+                      onChange={onImageChange2}
+                      id="upload-photo2"
+                    />
+                  </Fragment>
+                ) : (
+                  <img src={img2} alt="" height="100px" width="120px"></img>
+                )}
               </Col>
               <Col className="d-flex flex-column justify-content-start align-items-center">
                 <label
@@ -589,21 +608,27 @@ const LastNews = () => {
                   x
                 </label>
 
-                <label htmlFor="upload-photo3">
-                  <img
-                    src={img3}
-                    alt="click"
-                    height="100px"
-                    width="120px"
-                    style={{ cursor: "pointer" }}
-                  ></img>
-                </label>
-                <input
-                  type="file"
-                  name="photo"
-                  onChange={onImageChange3}
-                  id="upload-photo3"
-                />
+                {img3 === avatar ? (
+                  <Fragment>
+                    <label htmlFor="upload-photo3">
+                      <img
+                        src={img3}
+                        alt="click"
+                        height="100px"
+                        width="120px"
+                        style={{ cursor: "pointer" }}
+                      ></img>
+                    </label>
+                    <input
+                      type="file"
+                      name="photo"
+                      onChange={onImageChange3}
+                      id="upload-photo3"
+                    />
+                  </Fragment>
+                ) : (
+                  <img src={img3} alt="" height="100px" width="120px"></img>
+                )}
               </Col>
             </Form.Group>
           </Modal.Body>

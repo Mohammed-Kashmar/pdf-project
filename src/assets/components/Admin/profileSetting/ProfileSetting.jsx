@@ -33,7 +33,7 @@ export const ProfileSetting = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await useGetData(
-        `/admin_api/show_admin_by_name?name=${userData.name}`
+        `/admin_api/show_admin_by_name?name=${localStorage.getItem("name")}`
       );
       setAdminDetails(res);
       console.log(res);
@@ -147,6 +147,7 @@ export const ProfileSetting = () => {
     console.log(response.data);
     if (response.data.success === true) {
       notify(response.data.message, "success");
+      localStorage.setItem("name", form.name);
     } else {
       notify(response.data.message, "error");
     }
@@ -186,7 +187,7 @@ export const ProfileSetting = () => {
                   />
                 </Col>
               </Form.Group>
-
+          
               <Form.Group
                 as={Row}
                 className="mb-3 align-items-center"
