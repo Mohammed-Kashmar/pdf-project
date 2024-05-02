@@ -2,13 +2,49 @@
   font-family: "Almarai", sans-serif;
 }
 
+.fullscreen-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999; /* ضع القيمة التي تأكد أنها أعلى من العناصر الأخرى على الصفحة */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8); /* توهج خلفية سوداء شفافة */
+}
+
+.fullscreen-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fullscreen-img {
+  max-width: 90%; /* أقصى عرض للصورة */
+  max-height: 90%; /* أقصى ارتفاع للصورة */
+  object-fit: contain; /* ضبط تناسب الصورة داخل العنصر */
+}
+
+.image-gallery-fullscreen-button .image-gallery-svg{
+  display: none !important;
+}
+
+.image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg {
+  height: 50px !important;
+  width: 60px;
+}
+
 .imagenavbar{
   width: 100%;
   margin: 0;
   position: relative;
   height: 200px;
   border-radius: 15px;
-
+  height: calc(100vh - 55px);
 }
 
 .imagenavbar img{
@@ -16,6 +52,8 @@
   height: 100%;
   border-radius: 15px;
   margin-top: 4px !important;
+
+
 }
 
 .socialmedia{
@@ -61,14 +99,14 @@
 }
 
 .logoo img {
-  height: 30px;
+  height: 32px;
   width: 49px;
 }
 
 .name{
   position: absolute;
   top: 13.5px;
-  left: 40%;
+  left: 50%;
   color: white;
   font-size: 20px;
 }
@@ -117,7 +155,7 @@
   min-height: 300px;
   margin-left: auto !important;
   margin-right: auto !important;
-  width: 200px;
+  width: 170px;
 }
 
 .tripphoto{
@@ -133,6 +171,7 @@
   width: 100%;
   height: 100%;
   border-radius: 30px;
+  object-fit: cover;
 }
 
 .triptext{
@@ -141,7 +180,7 @@
   margin-right: auto !important; */
   text-align: center;
   margin-top: 5px !important;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 .R{
   background: red;
@@ -512,6 +551,11 @@ text-align: end;
   width: 30px;
   height: 30px;
 }
+@media (max-width: 768px) {
+  .imagenavbar{
+    height:500px;
+  }
+}
 
 @media (max-width: 480px) {
   .tripphoto{
@@ -544,8 +588,15 @@ text-align: end;
     margin-left: -5px !important;
   }
   .trip{
-    width: 180px;
+    width: 150px;
   }
+  .imagenavbar{
+    height:200px;
+  }
+  .name{
+    left: 45%;
+  }
+  
 }
 
 .backgorund_admin {
