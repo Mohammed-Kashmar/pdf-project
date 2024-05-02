@@ -11,6 +11,8 @@ import Rating from "react-rating-stars-component";
 import { ToastContainer, toast } from "react-toastify";
 import { IoIosStar } from "react-icons/io";
 import { MdDownload } from "react-icons/md";
+import mime from 'mime-types';
+import ReactPlayer from 'react-player';
 
 const initialState = {
   pdf_id: "",
@@ -24,6 +26,8 @@ const initialState = {
 };
 
 export const Pdf = ({ viewPdf, setViewPdf }) => {
+  const currentDate = new Date().toISOString().split('T')[0];
+
   const pdfUrl =
     "https://api-rating.watanyia.com/user_api/show_one_pdf?pdfId=8";
 
@@ -66,8 +70,6 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
 
   const [formData, setFormData] = useState(initialState);
   const { id } = useParams();
-  console.log(id);
-
   const [password, setPassword] = useState("");
   const [showInterPassword, setShowInterPassword] = useState(false);
   const handleShowInterPassword = () => setShowInterPassword(true);
@@ -75,8 +77,6 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
   };
-
-
   const handleShowSuccessPassword = async () => {
     try {
       const respons = await axios.get(
@@ -86,8 +86,10 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
         handleCloseInterPassword();
         if (downloadOrView === 1) handleShowPdf();
         else if (downloadOrView === 2) {
-          toast.success("Downloading Wait a Moment Please")
-          const localFilePath = ` https://api-rating.watanyia.com/storage/${itemClicked.location}`;
+          if((`https://api-rating.watanyia.com/storage/${itemClicked.location}`).slice(-3) === 'pdf'){
+            toast.promise(
+              new Promise((resolve, reject) => {
+              const localFilePath = ` https://api-rating.watanyia.com/storage/${itemClicked.location}`;
           axios
             .get(localFilePath, {
               responseType: "blob",
@@ -96,15 +98,66 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
               const url = window.URL.createObjectURL(new Blob([response.data]));
               const link = document.createElement("a");
               link.href = url;
-              link.setAttribute("download", itemClicked.name + ".pdf"); // Set desired filename
+              link.setAttribute("download", itemClicked.title + ".pdf"); // Set desired filename
               document.body.appendChild(link);
               link.click();
-              toast.success("Downloaded")
-            })
+              resolve();
+            }).catch(reject);
+          }),
+          {
+            pending: "Downloading. Please wait minutes...", // رسالة ال toast عند بدء التنزيل
+            success: "Download completed successfully.", // رسالة ال toast عند نجاح التنزيل
+            error: "Download failed." // رسالة ال toast عند فشل التنزيل
+          },
+          {
+            closeOnClick: false // تعيين خيارات الـToast الإضافية
+          })
             .catch((error) => {
               console.error("Error downloading PDF:", error);
               toast.error("Download Failed")
             });
+          }else{
+            const getExtension = (url) => {
+              return url.split('.').pop().toLowerCase();
+          };
+          toast.promise(
+            new Promise((resolve, reject) => {
+            const localFilePath = `https://api-rating.watanyia.com/storage/${itemClicked.location}`;
+      axios
+          .get(localFilePath, {
+              responseType: "blob",
+          })
+          .then((response) => {
+              const url = window.URL.createObjectURL(new Blob([response.data]));
+              const link = document.createElement("a");
+              link.href = url;
+              
+              // Get the extension from the URL
+              const extension = getExtension(localFilePath);              
+              if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'mkv' || extension === 'wmv') {
+                // console.log(item.name+"."+"extension")
+                  link.setAttribute("download", itemClicked.title + "." + extension);
+                  document.body.appendChild(link);
+                  link.click();
+                 resolve()
+              } else {
+                reject(new Error('Unsupported file format'));
+              }
+          }) .catch(reject);
+        }),
+        {
+          pending: "Downloading. Please wait minutes...", // رسالة ال toast عند بدء التنزيل
+          success: "Download completed successfully.", // رسالة ال toast عند نجاح التنزيل
+          error: "Download failed." // رسالة ال toast عند فشل التنزيل
+        },
+        {
+          closeOnClick: false // تعيين خيارات الـToast الإضافية
+        })
+          .catch((error) => {
+              console.error("Error downloading video:", error);
+              toast.error("Failed to download video.");
+          });
+          }
         }
       }
     } catch (e) {
@@ -123,7 +176,6 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
   const [personalInformation, setPersonalInformation] = useState(false);
   const handleClosePersonalInformationt = () => setPersonalInformation(false);
   const handleShowPersonalInformation = () => setPersonalInformation(true);
-
   const [showPdf, setShowPdf] = useState(false);
   const handleClosePdf = () => {
     setShowPdf(false);
@@ -132,10 +184,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
     setDownloadOrView(0);
   };
   const handleShowPdf = () => setShowPdf(true);
-  // const [somePdf, setSomePdf] = useState("");
-
   const handleClickPdf = (item) => {
-    // navigate(`/${name}/detailspdf/${id}`);
     setDownloadOrView(1);
     if (item.is_lock === 0) {
       setItemClicked(item);
@@ -151,8 +200,8 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
     if (formData.note === "" || formData.rate === "" || formData.country_id ==="") {
       toast.warn("Enter All Inputs");
       return;
-    } else if (formData.phone.length !== 10) {
-      toast.warn("The phone must be 10 number");
+    } else if (formData.phone.length !== 9) {
+      toast.warn("The phone must be 9 number");
       return;
     } else {
       handleShowPersonalInformation();
@@ -162,8 +211,6 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
 
   const handleClickSecond = async () => {
     if (
-      // formData.gender === "" ||
-      // formData.birthday === "" ||
       formData.name === ""
     ) {
       toast.warn("Enter Name Please");
@@ -195,37 +242,89 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
   };
 
   const downloadFile = async (item) => {
+    if((`https://api-rating.watanyia.com/storage/${item.location}`).slice(-3) === 'pdf'){
+      if (item.is_lock === 0) {
+        toast.promise(
+          new Promise((resolve, reject) => {  
+          const localFilePath = ` https://api-rating.watanyia.com/storage/${item.location}`;
+        axios
+          .get(localFilePath, {
+            responseType: "blob",
+          })
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", item.title + ".pdf"); // Set desired filename
+            document.body.appendChild(link);
+            link.click();
+            resolve();
+          }).catch(reject);
+        }),
+        {
+          pending: "Downloading. Please wait minutes...", // رسالة ال toast عند بدء التنزيل
+          success: "Download completed successfully.", // رسالة ال toast عند نجاح التنزيل
+          error: "Download failed." // رسالة ال toast عند فشل التنزيل
+        },
+        {
+          closeOnClick: false // تعيين خيارات الـToast الإضافية
+        })
+          .catch((error) => {
+            console.error("Error downloading PDF:", error);
+            toast.error("Download Failed")
+          });
+      } else if (item.is_lock === 1) {
+        setDownloadOrView(2);
+        setItemClicked(item);
+        setShowInterPassword(true);
+      }
+    }else{
+      const getExtension = (url) => {
+        return url.split('.').pop().toLowerCase();
+    };
     if (item.is_lock === 0) {
-      // setTimeout(() => {
-      //   setItemClicked(item);
-      // }, 2000);
-      toast.success("Downloading Wait a Moment Please")
-      const localFilePath = ` https://api-rating.watanyia.com/storage/${item.location}`;
+      toast.promise(
+        new Promise((resolve, reject) => {
+        const localFilePath = `https://api-rating.watanyia.com/storage/${item.location}`;
       axios
-        .get(localFilePath, {
-          responseType: "blob",
-        })
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]));
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute("download", itemClicked.name + ".pdf"); // Set desired filename
-          document.body.appendChild(link);
-          link.click();
-          toast.success("Downloaded")
-        })
-        
-        .catch((error) => {
-          console.error("Error downloading PDF:", error);
-          toast.error("Download Failed")
-        });
-    } else if (item.is_lock === 1) {
+          .get(localFilePath, {
+              responseType: "blob",
+          })
+          .then((response) => {
+              const url = window.URL.createObjectURL(new Blob([response.data]));
+              const link = document.createElement("a");
+              link.href = url;
+              
+              // Get the extension from the URL
+              const extension = getExtension(localFilePath);              
+              if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'mkv' || extension === 'wmv') {
+                // console.log(item.name+"."+"extension")
+                  link.setAttribute("download", item.title + "." + extension);
+                  document.body.appendChild(link);
+                  link.click();
+                  resolve()
+              } else {
+                reject(new Error('Unsupported file format')); // إنهاء الوعد بخطأ
+              }
+          }).catch(reject);}),
+          {
+            pending: "Downloading. Please wait minutes...", // رسالة ال toast عند بدء التنزيل
+            success: "Download completed successfully.", // رسالة ال toast عند نجاح التنزيل
+            error: "Download failed." // رسالة ال toast عند فشل التنزيل
+          },
+          {
+            closeOnClick: false // تعيين خيارات الـToast الإضافية
+          })
+          .catch((error) => {
+              console.error("Error downloading video:", error);
+              toast.error("Failed to download video.");
+          });
+  } else if (item.is_lock === 1) {
       setDownloadOrView(2);
       setItemClicked(item);
       setShowInterPassword(true);
+  }
     }
-
-    // Replace 'local_file_path' with the actual path to your local file
   };
 
   const ratingChanged = (newRating) => {
@@ -456,6 +555,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
                 name="birthday"
                 value={formData.birthday}
                 onChange={handleChange}
+                max={currentDate}
               />
             </Form.Group>
             <div
@@ -523,21 +623,40 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
       </Modal>
 
       <Modal show={showPdf} onHide={handleClosePdf} centered height={"100px"}>
-        <Modal.Header className="update">
-          {/* <Modal.Title className="update p-3"> المعلومات الشخصية </Modal.Title> */}
-        </Modal.Header>
-        <Modal.Body className="p-3">
+  <Modal.Header className="update">
+    {/* <Modal.Title className="update p-3"> المعلومات الشخصية </Modal.Title> */}
+  </Modal.Header>
+  <Modal.Body className="p-3">
+    <div>
+      {
+        (`https://api-rating.watanyia.com/storage/${itemClicked.location}`).slice(-3) === 'pdf' ? (
+          <iframe
+            src={`https://api-rating.watanyia.com/storage/${itemClicked.location}`}
+            type="application/pdf"
+            width="100%"
+            height="600px"
+          />
+        ) : (
           <div>
-            {/* <h1>عرض ملف PDF</h1> */}
-            <iframe
-              src={`https://api-rating.watanyia.com/storage/${itemClicked.location}`}
-              type="application/pdf"
+            <ReactPlayer
+              url={`https://api-rating.watanyia.com/storage/${itemClicked.location}`}
+              controls={true}
               width="100%"
-              height="600px"
+              height="100%"
+              config={{
+                            file: {
+                              attributes: {
+                                controlsList: "nodownload", // تعطيل خيار تنزيل الفيديو
+                              },
+                            },
+                          }}
             />
           </div>
-        </Modal.Body>
-      </Modal>
+        )
+      }
+    </div>
+  </Modal.Body>
+</Modal>
 
       <Modal
         show={showInterPassword}
@@ -590,7 +709,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
       
       
 
-      <ToastContainer />
+      <ToastContainer autoClose={false}/>
     </div>
   );
 };

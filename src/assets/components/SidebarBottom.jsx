@@ -6,7 +6,9 @@ import facebook from "../../images/pngegg.png";
 import instagram from "../../images/insta.png";
 import { IoHomeOutline } from "react-icons/io5";
 import { FaRegAddressCard } from "react-icons/fa";
-
+import { FaInstagram } from "react-icons/fa6";
+import { FaFacebookF } from "react-icons/fa6";
+import { SiWhatsapp } from "react-icons/si";
 export const SidebarBottom = ({adminDetails,handleClickAnother,viewPdf}) => {
   
 
@@ -18,16 +20,16 @@ export const SidebarBottom = ({adminDetails,handleClickAnother,viewPdf}) => {
         <nav className="navbar">
           <div className='icons'>
           <a href={adminDetails.facebook_url}>
-            <img src={facebook}/>
+          <FaFacebookF style={{color:"white" ,fontSize:"30px"}}/>
           </a>
           <a href={adminDetails.instagram_url}>
-            <img src={instagram}/>
+          <FaInstagram style={{color:"white" ,fontSize:"32px"}}/>
           </a>
-            <IoHomeOutline onClick={handleClickAnother} style={{color:"white" , fontSize:"30px"}} />
+            <IoHomeOutline onClick={handleClickAnother} style={{color:"white" , fontSize:"33px" , cursor:"pointer"}} />
             <a href={`https://wa.me/${adminDetails.whatsapp}`}>
-                <img src={whats}/>
+            <SiWhatsapp style={{color:"white" ,fontSize:"30px" , cursor:"pointer"}}/>
             </a>
-            <FaRegAddressCard onClick={handleShowAddress} style={{color:"white" , fontSize:"30px"}}/>
+            <FaRegAddressCard onClick={handleShowAddress} style={{color:"white" , fontSize:"31px" , cursor:"pointer"}}/>
           </div>
 
 

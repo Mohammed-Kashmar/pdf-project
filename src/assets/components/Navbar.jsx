@@ -125,6 +125,7 @@ export const Navbar = ({name,adminDetails,viewPdf}) => {
         <img
           src={`https://api-rating.watanyia.com/storage/${adminDetails.cover}`}
           alt=""
+          
         />
         <div className="socialmedia"></div>
       </div>) : ("")
