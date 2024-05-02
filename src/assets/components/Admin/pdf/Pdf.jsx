@@ -73,8 +73,10 @@ const Pdf = () => {
     );
     setLoadingFirst(false);
     // setPdfs(res);
-    if (res.status === 200) {
+    if (res.status === 200 && res.data.status !== 401) {
       setPdfs(res.data);
+    }else if ( res.status === 200 && res.data.status === 401){
+      notify(res.data.message, "error")
     } else if (res.status === 404) {
       setPdfs([]);
     }

@@ -10,3 +10,20 @@
 .admin_details p strong {
   margin-left: 5px !important;
 }
+
+.switch {
+  padding: 3px !important;
+}
+.react-switch-handle {
+  height: 20px !important;
+  width: 20px !important;
+  margin: 3px 3px 0 !important;
+}
+.switch input {
+  display: none !important;
+}
+.react-switch-bg {
+  background-color: #ffc6c5 !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}

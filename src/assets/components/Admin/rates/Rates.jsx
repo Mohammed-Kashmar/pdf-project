@@ -7,6 +7,8 @@ import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import Pagination from "../utility/pagination/Pagination";
 import './Rates.css'
+import notify from "../../utility/useNotification";
+import { ToastContainer } from "react-toastify";
 
 function Rates() {
   const [loadingFirst, setLoadingFirst] = useState(true);
@@ -20,8 +22,10 @@ function Rates() {
     );
     setLoadingFirst(false);
     // setRates(res);
-    if (res.status === 200) {
+    if (res.status === 200 && res.data.status !== 401) {
       setRates(res.data);
+    }else if (res.status === 200 && res.data.status === 401) {
+      notify(res.data.message, "error")
     } else if (res.status === 404) {
       setRates([]);
     }
@@ -110,6 +114,8 @@ function Rates() {
       {rates.last_page > 1 ? (
         <Pagination onPress={onPress} pageCount={rates.last_page} />
       ) : null}
+
+      <ToastContainer/>
     </div>
   );
 }

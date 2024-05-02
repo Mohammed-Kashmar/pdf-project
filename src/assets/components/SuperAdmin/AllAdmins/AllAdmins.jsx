@@ -20,6 +20,7 @@ import { ToastContainer } from "react-toastify";
 import { useDeleteDataSuperAdmin } from "../../../../hooks/useDeleteData";
 import { FaCommentSms } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import Switch from "react-switch";
 
 const initialState = {
   name: "",
@@ -87,9 +88,9 @@ export default function AllAdmins() {
       sms_message: res.data.data.admin_detail.sms_message || "",
       storage_size: res.data.data.storage_size || "",
       sms_user: res.data.data.sms_user || "",
-      bad: res.data.data.sms_user?.bad || "",
-      good: res.data.data.sms_user?.good || "",
-      perfect: res.data.data.sms_user?.perfect || "",
+      // bad: res.data.data.sms_user?.bad || "",
+      // good: res.data.data.sms_user?.good || "",
+      // perfect: res.data.data.sms_user?.perfect || "",
       count_sms: res.data.data.admin_detail.count_sms || 0,
       whatsapp: res.data.data.admin_detail.whatsapp || "",
       address: res.data.data.admin_detail.address || "",
@@ -130,7 +131,7 @@ export default function AllAdmins() {
     const res = await useGetDataSuperAdmin(
       `/superAdmin_api/show_one_admin?adminId=${admin.id}`
     );
-    console.log(res);
+    console.log(res.data.data.sms_user.good.toString());
     setFormData({
       ...formData,
       name: res.data.data.name || initialState.name,
@@ -146,6 +147,9 @@ export default function AllAdmins() {
       sms_message: res.data.data.admin_detail.sms_message || "",
       whatsapp: res.data.data.admin_detail.whatsapp || "",
       address: res.data.data.admin_detail.address || "",
+      "sms_users[bad]": res.data.data.sms_user?.bad || 0,
+      "sms_users[good]": res.data.data.sms_user?.good || 0,
+      "sms_users[perfect]": res.data.data.sms_user?.perfect || 0,
     });
 
     setImg(
@@ -162,6 +166,7 @@ export default function AllAdmins() {
     data: admins,
     isPending,
     error,
+    setKey,
   } = useFetchDataSuperAdmin(`/superAdmin_api/show_admins?page=${page}`);
 
   const onPress = (page) => {
@@ -188,12 +193,11 @@ export default function AllAdmins() {
     if (
       formData.name === "" ||
       formData.user_name === "" ||
-      formData.phone === "" ||
-      formData.facebook_url === "" ||
-      formData.instagram_url === "" ||
       formData.cover === null ||
       formData.logo === null ||
-      formData.end_date === ""
+      formData.end_date === "" ||
+      formData.password === "" ||
+      formData.storage_id === ""
     ) {
       notify("Please Enter Data", "error");
       return;
@@ -206,16 +210,18 @@ export default function AllAdmins() {
         formData["sms_users[good]"] === "" ||
         formData["sms_users[perfect]"] === ""
       ) {
-        notify("Please Enter Data", "error");
+        notify("Please Enter Sms", "error");
         return;
       }
     }
 
     let updatedFormData = { ...formData };
-    // updatedFormData = {
-    //   ...updatedFormData,
-    //   admin_id: userData.id,
-    // };
+    if (updatedFormData.is_sms.toString() === "0") {
+      delete updatedFormData.sms_message,
+        delete updatedFormData["sms_users[bad]"],
+        delete updatedFormData["sms_users[good]"],
+        delete updatedFormData["sms_users[perfect]"];
+    }
     setIsPress(true);
     const response = await useInsertDataWithImageSuperAdmin(
       `/superAdmin_api/add_admin`,
@@ -227,6 +233,7 @@ export default function AllAdmins() {
       notify(response.data.message, "success");
       setFormData(initialState);
       handleCloseAddAdmin();
+      setKey((prevKey) => prevKey + 1);
       setImg("");
       setImgLogo("");
     } else {
@@ -240,10 +247,8 @@ export default function AllAdmins() {
     if (
       formData.name === "" ||
       formData.user_name === "" ||
-      formData.phone === "" ||
-      formData.facebook_url === "" ||
-      formData.instagram_url === "" ||
-      formData.end_date === ""
+      formData.end_date === "" ||
+      formData.storage_id === ""
     ) {
       notify("Please Enter Data", "error");
       return;
@@ -256,7 +261,7 @@ export default function AllAdmins() {
         formData["sms_users[good]"] === "" ||
         formData["sms_users[perfect]"] === ""
       ) {
-        notify("Please Enter Data", "error");
+        notify("Please Enter Sms", "error");
         return;
       }
     }
@@ -291,7 +296,7 @@ export default function AllAdmins() {
       handleCloseEditAdmin();
       setImg("");
       setImgLogo("");
-      setPage("");
+      setKey((prevKey) => prevKey + 1);
     } else {
       notify(response.data.message, "error");
     }
@@ -307,7 +312,7 @@ export default function AllAdmins() {
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseDelete();
-      setPage("");
+      setKey((prevKey) => prevKey + 1);
     } else {
       notify(response.data.message, "error");
     }
@@ -334,8 +339,21 @@ export default function AllAdmins() {
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseAddSms();
-      setPage("");
+      setKey((prevKey) => prevKey + 1);
       setQuantity("");
+    } else {
+      notify(response.data.message, "error");
+    }
+  };
+
+  const handleChangeActive = async (id) => {
+    const response = await useInsertDataSuperAdmin(
+      `/superAdmin_api/active_or_not_admin?adminId=${id}`,
+      {}
+    );
+    if (response.data.success === true) {
+      notify(response.data.message, "success");
+      setKey((prevKey) => prevKey + 1);
     } else {
       notify(response.data.message, "error");
     }
@@ -401,7 +419,21 @@ export default function AllAdmins() {
                             size={18}
                             onClick={() => handleShowDelete(admin.id)}
                           />
+                          <Switch
+                            checked={admin.is_active}
+                            onChange={() => handleChangeActive(admin.id)}
+                            checkedIcon={"on"}
+                            uncheckedIcon={"off"}
+                            onHandleColor={"#FFF"}
+                            offHandleColor={"#000"}
+                            width={60}
+                            className=""
+                          />
+
                           <FaCommentSms
+                            style={{
+                              visibility: admin.is_sms === 0 ? "hidden" : "",
+                            }}
                             size={18}
                             onClick={() => handleShowAddSms(admin.id)}
                           />
@@ -632,7 +664,7 @@ export default function AllAdmins() {
               <Col className="col-9 d-flex justify-content-end ">
                 <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
                   <label className="form-check-label mx-2" htmlFor="no">
-                    لاء
+                    لا
                   </label>
                   <input
                     className="form-check-input"
@@ -641,6 +673,7 @@ export default function AllAdmins() {
                     value={0}
                     name="is_sms"
                     onChange={handleChange}
+                    checked={formData.is_sms.toString() === "0" ? true : false}
                   />
                 </div>
                 <div className="form-check form-check-inline d-flex flex-row-reverse align-items-center">
@@ -654,6 +687,7 @@ export default function AllAdmins() {
                     value={1}
                     name="is_sms"
                     onChange={handleChange}
+                    checked={formData.is_sms.toString() === "1" ? true : false}
                   />
                 </div>
               </Col>
@@ -689,7 +723,7 @@ export default function AllAdmins() {
                   <Col className="col-9 d-flex justify-content-end ">
                     <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
                       <label className="form-check-label mx-2" htmlFor="no1">
-                        لاء
+                        لا
                       </label>
                       <input
                         className="form-check-input"
@@ -726,7 +760,7 @@ export default function AllAdmins() {
                   <Col className="col-9 d-flex justify-content-end ">
                     <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
                       <label className="form-check-label mx-2" htmlFor="no11">
-                        لاء
+                        لا
                       </label>
                       <input
                         className="form-check-input"
@@ -763,7 +797,7 @@ export default function AllAdmins() {
                   <Col className="col-9 d-flex justify-content-end ">
                     <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
                       <label className="form-check-label mx-2" htmlFor="no111">
-                        لاء
+                        لا
                       </label>
                       <input
                         className="form-check-input"
@@ -1079,7 +1113,7 @@ export default function AllAdmins() {
               <Col className="col-9 d-flex justify-content-end ">
                 <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
                   <label className="form-check-label mx-2" htmlFor="no">
-                    لاء
+                    لا
                   </label>
                   <input
                     className="form-check-input"
@@ -1138,7 +1172,7 @@ export default function AllAdmins() {
                   <Col className="col-9 d-flex justify-content-end ">
                     <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
                       <label className="form-check-label mx-2" htmlFor="no1">
-                        لاء
+                        لا
                       </label>
                       <input
                         className="form-check-input"
@@ -1147,6 +1181,11 @@ export default function AllAdmins() {
                         value={0}
                         name="sms_users[bad]"
                         onChange={handleChange}
+                        checked={
+                          formData["sms_users[bad]"].toString() === "0"
+                            ? true
+                            : false
+                        }
                       />
                     </div>
                     <div className="form-check form-check-inline d-flex flex-row-reverse align-items-center">
@@ -1160,6 +1199,11 @@ export default function AllAdmins() {
                         value={1}
                         name="sms_users[bad]"
                         onChange={handleChange}
+                        checked={
+                          formData["sms_users[bad]"].toString() === "1"
+                            ? true
+                            : false
+                        }
                       />
                     </div>
                   </Col>
@@ -1175,7 +1219,7 @@ export default function AllAdmins() {
                   <Col className="col-9 d-flex justify-content-end ">
                     <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
                       <label className="form-check-label mx-2" htmlFor="no11">
-                        لاء
+                        لا
                       </label>
                       <input
                         className="form-check-input"
@@ -1184,6 +1228,11 @@ export default function AllAdmins() {
                         value={0}
                         name="sms_users[good]"
                         onChange={handleChange}
+                        checked={
+                          formData["sms_users[good]"].toString() === "0"
+                            ? true
+                            : false
+                        }
                       />
                     </div>
                     <div className="form-check form-check-inline d-flex flex-row-reverse align-items-center">
@@ -1197,6 +1246,11 @@ export default function AllAdmins() {
                         value={1}
                         name="sms_users[good]"
                         onChange={handleChange}
+                        checked={
+                          formData["sms_users[good]"].toString() === "1"
+                            ? true
+                            : false
+                        }
                       />
                     </div>
                   </Col>
@@ -1212,7 +1266,7 @@ export default function AllAdmins() {
                   <Col className="col-9 d-flex justify-content-end ">
                     <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
                       <label className="form-check-label mx-2" htmlFor="no111">
-                        لاء
+                        لا
                       </label>
                       <input
                         className="form-check-input"
@@ -1221,6 +1275,11 @@ export default function AllAdmins() {
                         value={0}
                         name="sms_users[perfect]"
                         onChange={handleChange}
+                        checked={
+                          formData["sms_users[perfect]"].toString() === "0"
+                            ? true
+                            : false
+                        }
                       />
                     </div>
                     <div className="form-check form-check-inline d-flex flex-row-reverse align-items-center">
@@ -1234,6 +1293,11 @@ export default function AllAdmins() {
                         value={1}
                         name="sms_users[perfect]"
                         onChange={handleChange}
+                        checked={
+                          formData["sms_users[perfect]"].toString() === "1"
+                            ? true
+                            : false
+                        }
                       />
                     </div>
                   </Col>
@@ -1424,7 +1488,7 @@ export default function AllAdmins() {
             </p>
             <p>
               <strong>الرسائل: </strong>
-              {formData.is_sms.toString() === "1" ? "نعم" : "لاء"}
+              {formData.is_sms.toString() === "1" ? "نعم" : "لا"}
             </p>
             <p>
               <strong>الرابط: </strong>
@@ -1447,21 +1511,21 @@ export default function AllAdmins() {
                   <strong>رسائل للتقييم السيئ: </strong>
                   {formData.sms_user && formData.sms_user.bad.toString() === "1"
                     ? "نعم"
-                    : "لاء"}
+                    : "لا"}
                 </p>
                 <p>
                   <strong>رسائل للتقييم الجيد: </strong>
                   {formData.sms_user &&
                   formData.sms_user.good.toString() === "1"
                     ? "نعم"
-                    : "لاء"}
+                    : "لا"}
                 </p>
                 <p>
                   <strong>رسائل للتقييم الممتاز: </strong>
                   {formData.sms_user &&
                   formData.sms_user.perfect.toString() === "1"
                     ? "نعم"
-                    : "لاء"}
+                    : "لا"}
                 </p>
               </div>
             )}

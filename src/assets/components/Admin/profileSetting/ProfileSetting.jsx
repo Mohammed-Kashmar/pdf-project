@@ -37,6 +37,9 @@ export const ProfileSetting = () => {
       );
       setAdminDetails(res);
       console.log(res);
+      if(res.data.status === 401) {
+        notify(res.data.message, "error")
+      }
     };
     fetchData();
   }, []);

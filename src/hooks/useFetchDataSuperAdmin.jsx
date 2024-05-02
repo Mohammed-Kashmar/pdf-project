@@ -5,6 +5,7 @@ const useFetchDataSuperAdmin = (url) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
+  const [key, setKey] = useState(0); // Add a key state
 
   const superAdminData = JSON.parse(localStorage.getItem("superAdmin"));
   useEffect(() => {
@@ -27,10 +28,10 @@ const useFetchDataSuperAdmin = (url) => {
     setTimeout(() => {
       getData();
     }, 1000);
-  }, [url]);
+  }, [url, key, superAdminData.token]);
   // console.log(data)
 
-  return { data, isPending, error };
+  return { data, isPending, error, setKey };
 };
 
 export default useFetchDataSuperAdmin;

@@ -17,7 +17,7 @@ import {
 } from "../../../../hooks/useInsertData";
 import { ToastContainer } from "react-toastify";
 import avatar from "../../../../images/avatar.png";
-import {useDeleteData} from "../../../../hooks/useDeleteData";
+import { useDeleteData } from "../../../../hooks/useDeleteData";
 import Pagination from "../utility/pagination/Pagination";
 // import { useDeleteData } from "../../../../hooks/useDeleteData";
 
@@ -44,6 +44,9 @@ const LastNews = () => {
   const [img2, setImg2] = useState(avatar);
   const [img3, setImg3] = useState(avatar);
   const [showDelete, setShowDelete] = useState(false);
+  const [typePost, setTypePost] = useState("");
+  const [video, setVideo] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const handleCloseDelete = () => setShowDelete(null);
   const handleShowDelete = (id) => setShowDelete(id);
@@ -60,7 +63,6 @@ const LastNews = () => {
     setImgs(acc);
   };
 
-
   const handleCloseAddPost = () => setAddPost(false);
   const handleShowAddPost = () => {
     setFormData(initialState);
@@ -71,11 +73,14 @@ const LastNews = () => {
   const handleCloseEditPost = () => setEditPost(false);
   const handleShowEditPost = async (post) => {
     setEditPost(post);
+    setVideo("");
     setImg(avatar);
     setImg2(avatar);
     setImg3(avatar);
+    setLoading(true);
     const res = await useGetData(`/admin_api/show_one_post?postId=${post.id}`);
     console.log(res);
+    setLoading(false);
     setEditPost(res.data.data);
     setFormData({
       title: res.data.data.title || initialState.title,
@@ -86,6 +91,12 @@ const LastNews = () => {
       return [`https://api-rating.watanyia.com/storage/${post.location}`];
     });
     setImages_product(acc);
+
+    if (res.data.data.video !== null) {
+      setVideo(
+        `https://api-rating.watanyia.com/storage/${res.data.data.video}`
+      );
+    }
 
     setImg(
       `https://api-rating.watanyia.com/storage/${res.data.data.post_images[0].location}`
@@ -110,12 +121,13 @@ const LastNews = () => {
     );
     setLoadingFirst(false);
     console.log(res);
-    if (res.status === 200) {
+    if (res.status === 200 && res.data.status !== 401) {
       setPosts(res);
+    }else if (res.status === 200 && res.data.status === 401){
+      notify(res.data.message, "error")
     } else {
       setPosts([]);
     }
-    console.log(res);
   };
   useEffect(() => {
     fetchData("");
@@ -153,12 +165,16 @@ const LastNews = () => {
     });
 
     let updatedFormData = { ...formData };
-    itemImages.forEach((file, index) => {
-      updatedFormData = {
-        ...updatedFormData,
-        [`images[${index}]`]: file,
-      };
-    });
+    if (typePost === "image") {
+      itemImages.forEach((file, index) => {
+        updatedFormData = {
+          ...updatedFormData,
+          [`images[${index}]`]: file,
+        };
+      });
+      delete updatedFormData.video;
+    }
+
     updatedFormData = {
       ...updatedFormData,
       admin_id: userData.id,
@@ -271,20 +287,20 @@ const LastNews = () => {
       } else {
         notify(responseTwo.data.message, "error");
       }
-      
+
       console.log(responseTwo.data);
     }
-    fetchData('');
+    fetchData("");
   };
 
   const handleDeletePost = async (id) => {
     setIsPress(true);
     const response = await useDeleteData(`/admin_api/delete_post?postId=${id}`);
-    setIsPress(false)
+    setIsPress(false);
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseDelete();
-      fetchData('');
+      fetchData("");
     } else {
       notify(response.data.message, "error");
     }
@@ -329,7 +345,7 @@ const LastNews = () => {
                         <MdDelete onClick={() => handleShowDelete(post.id)} />
                       </td>
                     </tr>
-                  ); 
+                  );
                 })
               ) : (
                 <tr>
@@ -338,7 +354,6 @@ const LastNews = () => {
                   </td>
                 </tr>
               )}
-              
             </tbody>
           ) : (
             <tbody>
@@ -371,14 +386,23 @@ const LastNews = () => {
           <div className="container">
             <div className="row">
               <div className="col p-4 d-flex justify-content-center">
-                <ImageGallery
-                  items={imgs}
-                  showFullscreenButton={false}
-                  isRTL={true}
-                  showPlayButton={false}
-                  showThumbnails={false}
-                  lazyLoad={true}
-                />
+                {show.video !== null ? (
+                  <video width="320" height="240" controls autoPlay onContextMenu={e => e.preventDefault()} controlsList="nodownload">
+                    <source
+                      src={`https://api-rating.watanyia.com/storage/${show.video}`}
+                      type="video/mp4"
+                    />
+                  </video>
+                ) : (
+                  <ImageGallery
+                    items={imgs}
+                    showFullscreenButton={false}
+                    isRTL={true}
+                    showPlayButton={false}
+                    showThumbnails={false}
+                    lazyLoad={true}
+                  />
+                )}
               </div>
               <div className="col p-4 d-flex justify-content-center">
                 <p className="text-capitalize"> {show.description}</p>
@@ -436,24 +460,80 @@ const LastNews = () => {
                 />
               </Col>
             </Form.Group>
+
             <Form.Group
               as={Row}
               className="mb-3 align-items-center"
               style={{ flexDirection: "row-reverse" }}
             >
+              {" "}
               <Form.Label column className="col-2">
-                :الصور
+                :نوع الخبر
               </Form.Label>
-              <Col className="col-10">
-                <MultiImageInput
-                  images={images_product}
-                  setImages={setImages_product}
-                  theme={"light"}
-                  allowCrop={false}
-                  max={3}
+              <Col className="col-10 d-flex justify-content-end">
+                <Form.Check
+                  inline
+                  label="فيديو"
+                  name="video"
+                  type={"radio"}
+                  id="video"
+                  className="d-flex align-items-center justify-content-start mx-2"
+                  onChange={() => setTypePost("video")}
+                  checked={typePost === "video"}
+                />
+                <Form.Check
+                  inline
+                  label="صور"
+                  name="image"
+                  type={"radio"}
+                  id="image"
+                  className="d-flex align-items-center justify-content-start mx-2"
+                  onChange={() => setTypePost("image")}
+                  checked={typePost === "image"}
                 />
               </Col>
             </Form.Group>
+
+            {typePost === "video" && (
+              <Form.Group
+                as={Row}
+                className="mb-3 align-items-center"
+                style={{ flexDirection: "row-reverse" }}
+              >
+                <Form.Label column className="col-2">
+                  :الفيديو
+                </Form.Label>
+                <Col className="col-10 d-flex justify-content-center">
+                  <Form.Control
+                    type="file"
+                    name="images[0]"
+                    onChange={handleChange}
+                    id="upload-file"
+                    dir="rtl"
+                  />
+                </Col>
+              </Form.Group>
+            )}
+            {typePost === "image" && (
+              <Form.Group
+                as={Row}
+                className="mb-3 align-items-center"
+                style={{ flexDirection: "row-reverse" }}
+              >
+                <Form.Label column className="col-2">
+                  :الصور
+                </Form.Label>
+                <Col className="col-10">
+                  <MultiImageInput
+                    images={images_product}
+                    setImages={setImages_product}
+                    theme={"light"}
+                    allowCrop={false}
+                    max={3}
+                  />
+                </Col>
+              </Form.Group>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <button className="btn_cancel" onClick={handleCloseAddPost}>
@@ -525,112 +605,129 @@ const LastNews = () => {
                 />
               </Col>
             </Form.Group>
-
-            <Form.Group
-              as={Row}
-              className="mb-5 align-items-center"
-              style={{ flexDirection: "row-reverse" }}
-            >
-              <Form.Label column className="col-2">
-                :الصور
-              </Form.Label>
-              <Col className="d-flex flex-column justify-content-start align-items-center">
-                <label
-                  className="cancel_image"
-                  onClick={() =>
-                    handleClickCancelImage(1, editPost.post_images[0].id)
-                  }
+            {!loading &&
+              (video !== "" ? (
+                <Form.Group
+                  as={Row}
+                  className="mb-5 align-items-center"
+                  style={{ flexDirection: "row-reverse" }}
                 >
-                  x
-                </label>
-
-                {img === avatar ? (
-                  <Fragment>
-                    <label htmlFor="upload-photo">
-                      <img
-                        src={img}
-                        alt="click"
-                        height="100px"
-                        width="120px"
-                        style={{ cursor: "pointer" }}
-                      ></img>
-                    </label>
-                    <input
-                      type="file"
-                      name="photo"
-                      onChange={onImageChange}
-                      id="upload-photo"
-                    />
-                  </Fragment>
-                ) : (
-                  <img src={img} alt="" height="100px" width="120px"></img>
-                )}
-              </Col>
-
-              <Col className="d-flex flex-column justify-content-start align-items-center">
-                <label
-                  className="cancel_image"
-                  onClick={() =>
-                    handleClickCancelImage(2, editPost.post_images[1].id)
-                  }
+                  <Form.Label column className="col-2">
+                    :الفيديو
+                  </Form.Label>
+                  <Col className="d-flex flex-column justify-content-start align-items-center">
+                    <video width="320" height="240" controls>
+                      <source src={video} type="video/mp4" />
+                    </video>
+                  </Col>
+                </Form.Group>
+              ) : (
+                <Form.Group
+                  as={Row}
+                  className="mb-5 align-items-center"
+                  style={{ flexDirection: "row-reverse" }}
                 >
-                  x
-                </label>
-                {img2 === avatar ? (
-                  <Fragment>
-                    <label htmlFor="upload-photo2">
-                      <img
-                        src={img2}
-                        alt="click"
-                        height="100px"
-                        width="120px"
-                        style={{ cursor: "pointer" }}
-                      ></img>
+                  <Form.Label column className="col-2">
+                    :الصور
+                  </Form.Label>
+                  <Col className="d-flex flex-column justify-content-start align-items-center">
+                    <label
+                      className="cancel_image"
+                      onClick={() =>
+                        handleClickCancelImage(1, editPost.post_images[0].id)
+                      }
+                    >
+                      x
                     </label>
-                    <input
-                      type="file"
-                      name="photo"
-                      onChange={onImageChange2}
-                      id="upload-photo2"
-                    />
-                  </Fragment>
-                ) : (
-                  <img src={img2} alt="" height="100px" width="120px"></img>
-                )}
-              </Col>
-              <Col className="d-flex flex-column justify-content-start align-items-center">
-                <label
-                  className="cancel_image"
-                  onClick={() =>
-                    handleClickCancelImage(3, editPost.post_images[2].id)
-                  }
-                >
-                  x
-                </label>
 
-                {img3 === avatar ? (
-                  <Fragment>
-                    <label htmlFor="upload-photo3">
-                      <img
-                        src={img3}
-                        alt="click"
-                        height="100px"
-                        width="120px"
-                        style={{ cursor: "pointer" }}
-                      ></img>
+                    {img === avatar ? (
+                      <Fragment>
+                        <label htmlFor="upload-photo">
+                          <img
+                            src={img}
+                            alt="click"
+                            height="100px"
+                            width="120px"
+                            style={{ cursor: "pointer" }}
+                          ></img>
+                        </label>
+                        <input
+                          type="file"
+                          name="photo"
+                          onChange={onImageChange}
+                          id="upload-photo"
+                        />
+                      </Fragment>
+                    ) : (
+                      <img src={img} alt="" height="100px" width="120px"></img>
+                    )}
+                  </Col>
+
+                  <Col className="d-flex flex-column justify-content-start align-items-center">
+                    <label
+                      className="cancel_image"
+                      onClick={() =>
+                        handleClickCancelImage(2, editPost.post_images[1].id)
+                      }
+                    >
+                      x
                     </label>
-                    <input
-                      type="file"
-                      name="photo"
-                      onChange={onImageChange3}
-                      id="upload-photo3"
-                    />
-                  </Fragment>
-                ) : (
-                  <img src={img3} alt="" height="100px" width="120px"></img>
-                )}
-              </Col>
-            </Form.Group>
+                    {img2 === avatar ? (
+                      <Fragment>
+                        <label htmlFor="upload-photo2">
+                          <img
+                            src={img2}
+                            alt="click"
+                            height="100px"
+                            width="120px"
+                            style={{ cursor: "pointer" }}
+                          ></img>
+                        </label>
+                        <input
+                          type="file"
+                          name="photo"
+                          onChange={onImageChange2}
+                          id="upload-photo2"
+                        />
+                      </Fragment>
+                    ) : (
+                      <img src={img2} alt="" height="100px" width="120px"></img>
+                    )}
+                  </Col>
+                  <Col className="d-flex flex-column justify-content-start align-items-center">
+                    <label
+                      className="cancel_image"
+                      onClick={() =>
+                        handleClickCancelImage(3, editPost.post_images[2].id)
+                      }
+                    >
+                      x
+                    </label>
+
+                    {img3 === avatar ? (
+                      <Fragment>
+                        <label htmlFor="upload-photo3">
+                          <img
+                            src={img3}
+                            alt="click"
+                            height="100px"
+                            width="120px"
+                            style={{ cursor: "pointer" }}
+                          ></img>
+                        </label>
+                        <input
+                          type="file"
+                          name="photo"
+                          onChange={onImageChange3}
+                          id="upload-photo3"
+                        />
+                      </Fragment>
+                    ) : (
+                      <img src={img3} alt="" height="100px" width="120px"></img>
+                    )}
+                  </Col>
+                </Form.Group>
+              ))}
           </Modal.Body>
           <Modal.Footer>
             <button className="btn_cancel" onClick={handleCloseEditPost}>
