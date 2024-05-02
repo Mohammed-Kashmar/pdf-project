@@ -114,6 +114,8 @@ export default function AllAdmins() {
   };
   const handleCloseEditAdmin = () => {
     setFormData(initialState);
+    setImg("");
+    setImgLogo("");
     setEditAdmin(false);
   };
   const handleShowEditAdmin = async (admin) => {

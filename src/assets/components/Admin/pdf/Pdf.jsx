@@ -44,20 +44,25 @@ const Pdf = () => {
   const handleShowDelete = (id) => setShowDelete(id);
 
   const handleCloseAddPdf = () => setAddPdf(false);
-  const handleShowAddPdf = () => setAddPdf(true);
+  const handleShowAddPdf = () => {
+    setFormData(initialState);
+    setImg("");
+    setAddPdf(true);
+  };
 
   const handleCloseEditPdf = () => setEditPdf(false);
   const handleShowEditPdf = async (pdf) => {
     setEditPdf(pdf);
-    setImg("");
-    const res = await useGetData(`/admin_api/show_one_pdf?pdfId=${pdf.id}`);
-    console.log(res);
+    // setImg("");
+    // const res = await useGetData(`/admin_api/show_one_pdf?pdfId=${pdf.id}`);
+    // console.log(res);
     setFormData({
-      title: res.data.data.title || initialState.title,
-      description: res.data.data.description || initialState.description,
+      title: pdf.title || initialState.title,
+      description: pdf.description || initialState.description,
       cover: null,
+      is_lock: pdf.is_lock || initialState.is_lock,
     });
-    setImg(`https://api-rating.watanyia.com/storage/${res.data.data.cover}`);
+    setImg(`https://api-rating.watanyia.com/storage/${pdf.cover}`);
   };
 
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -107,7 +112,7 @@ const Pdf = () => {
     }
 
     if (formData.is_lock === "1") {
-      if (formData.password.length < 4 ) {
+      if (formData.password.length < 4) {
         notify("The password must be 4 charachter", "error");
         return;
       }
@@ -154,6 +159,7 @@ const Pdf = () => {
     console.log(response.data);
     if (response.data.success === true) {
       notify(response.data.message, "success");
+      setFormData(initialState)
       handleCloseEditPdf();
       fetchData("");
     } else {
@@ -264,10 +270,12 @@ const Pdf = () => {
                   {show.size_of_file}
                 </p>
                 <div className=" py-1  d-flex flex-row-reverse">
-                  <strong className="mx-1">:الوصف</strong> <p className="w-100 text-break">{show.description}</p>
+                  <strong className="mx-1">:الوصف</strong>{" "}
+                  <p className="w-100 text-break">{show.description}</p>
                 </div>
                 <p className=" py-1">
-                  <strong className="mx-1">الخصوصية:</strong> {show.is_lock === 0 ? 'عام' : "خاص"}
+                  <strong className="mx-1">الخصوصية:</strong>{" "}
+                  {show.is_lock === 0 ? "عام" : "خاص"}
                 </p>
               </div>
             </div>
@@ -537,6 +545,66 @@ const Pdf = () => {
                 />
               </Col>
             </Form.Group>
+
+            <Form.Group
+              as={Row}
+              className="mb-3 align-items-center"
+              style={{ flexDirection: "row-reverse" }}
+            >
+              <Form.Label column className="col-3">
+                :الخصوصية
+              </Form.Label>
+              <Col className="col-9 d-flex justify-content-end ">
+                <div className="form-check form-check-inline mx-2 d-flex flex-row-reverse align-items-center">
+                  <label className="form-check-label mx-2" htmlFor="no">
+                    عام
+                  </label>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="no"
+                    value={0}
+                    name="is_lock"
+                    onChange={handleChange}
+                    checked={formData.is_lock.toString() === "0" ? true : false}
+                  />
+                </div>
+                <div className="form-check form-check-inline d-flex flex-row-reverse align-items-center">
+                  <label className="form-check-label mx-2" htmlFor="yes">
+                    خاص
+                  </label>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="yes"
+                    value={1}
+                    name="is_lock"
+                    onChange={handleChange}
+                    checked={formData.is_lock.toString() === "1" ? true : false}
+                  />
+                </div>
+              </Col>
+            </Form.Group>
+            {formData.is_lock.toString() === "1" && (
+              <Form.Group
+                as={Row}
+                className="mb-3 align-items-center"
+                style={{ flexDirection: "row-reverse" }}
+              >
+                <Form.Label column className="col-3">
+                  :كلمة السر
+                </Form.Label>
+                <Col className="col-9">
+                  <Form.Control
+                    type="text"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    maxLength={4}
+                  />
+                </Col>
+              </Form.Group>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <button className="btn_cancel" onClick={handleCloseEditPdf}>

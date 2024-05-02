@@ -53,6 +53,7 @@ const LoginPage = () => {
     if (loading === false) {
       if (resLogin && resLogin.success === true) {
         localStorage.setItem("token", resLogin.data.token);
+        localStorage.setItem("name", resLogin.data.name);
         localStorage.setItem("user",  JSON.stringify(resLogin.data));
         notify(resLogin.message, "success");
         setUsername("");
