@@ -1,4 +1,4 @@
-*{
+* {
   font-family: "Almarai", sans-serif;
 }
 
@@ -29,16 +29,17 @@
   object-fit: contain; /* ضبط تناسب الصورة داخل العنصر */
 }
 
-.image-gallery-fullscreen-button .image-gallery-svg{
+.image-gallery-fullscreen-button .image-gallery-svg {
   display: none !important;
 }
 
-.image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg {
+.image-gallery-left-nav .image-gallery-svg,
+.image-gallery-right-nav .image-gallery-svg {
   height: 50px !important;
   width: 60px;
 }
 
-.imagenavbar{
+.imagenavbar {
   width: 100%;
   margin: 0;
   position: relative;
@@ -47,22 +48,20 @@
   height: calc(100vh - 55px);
 }
 
-.imagenavbar img{
+.imagenavbar img {
   width: 100%;
   height: 100%;
   border-radius: 15px;
   margin-top: 4px !important;
-
-
 }
 
-.socialmedia{
+.socialmedia {
   position: absolute;
   top: 10px;
   right: 15px;
 }
 
-.socialmedia div{
+.socialmedia div {
   width: 30px;
   height: 30px;
   background-color: rgba(255, 255, 255, 1);
@@ -73,19 +72,19 @@
   align-items: center;
 }
 
-.socialmedia img{
+.socialmedia img {
   width: 11px;
   height: 18px;
 }
 
-.logo{
+.logo {
   position: absolute;
   top: 7.5px;
   right: 15px;
   border-radius: 50%;
 }
 
-.logoo{
+.logoo {
   position: absolute;
   top: 11.5px;
   left: 15px;
@@ -103,7 +102,7 @@
   width: 49px;
 }
 
-.name{
+.name {
   position: absolute;
   top: 13.5px;
   left: 50%;
@@ -111,7 +110,7 @@
   font-size: 20px;
 }
 
-.textlogo{
+.textlogo {
   position: absolute;
   width: 150px;
   height: 150px;
@@ -128,21 +127,21 @@
   font-weight: 700;
 }
 
-.textlogo img{
+.textlogo img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
 
-.total{
+.total {
   display: flex;
 }
 
-.pdf{
+.pdf {
   text-align: center;
 }
 
-.pdfh1{
+.pdfh1 {
   font-size: 30px;
   font-weight: 800;
   color: black;
@@ -150,7 +149,7 @@
   margin-top: 30px !important;
 }
 
-.trip{
+.trip {
   position: relative;
   min-height: 300px;
   margin-left: auto !important;
@@ -158,80 +157,91 @@
   width: 170px;
 }
 
-.tripphoto{
+.tripphoto {
   height: 250px;
   border-radius: 30px;
   cursor: pointer;
   margin-left: auto !important;
   margin-right: auto !important;
-  box-shadow:  0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
-.tripphoto img{
+.tripphoto img {
   width: 100%;
   height: 100%;
   border-radius: 30px;
   object-fit: cover;
 }
 
-.triptext{
-  /* width: 80%; */
-  /* margin-left: auto !important;
-  margin-right: auto !important; */
-  text-align: center;
-  margin-top: 5px !important;
-  /* cursor: pointer; */
-}
-.R{
+.R {
   background: red;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.triptext h5{
+.triptext {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px !important;
+}
+
+.triptext h5,
+.triptext span {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  white-space: normal; /* Allow text to wrap */
+  margin: 0; /* Remove default margin */
+  text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
+}
+.triptext h5 {
   color: red;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 20px;
+  margin: 0 !important;
 }
 
-.triptext span{
+.triptext span {
+  margin: 5px 0 !important;
   font-size: 16px;
   font-weight: 400;
   color: black;
 }
 
-.posts{
+.posts {
   text-align: center;
 }
 
-.view{
+.view {
   text-align: end;
   margin-left: auto !important;
   margin-bottom: 10px !important;
 }
 
-.toptext h1{
+.toptext h1 {
   font-size: 24px;
   font-weight: 700;
   color: black;
 }
 
-.toptext span{
+.toptext span {
   font-weight: 400;
   font-size: 14px;
   color: rgba(112, 112, 112, 1);
 }
 
-.view{
-  background-color:rgba(245, 245, 245, 1);
+.view {
+  background-color: rgba(245, 245, 245, 1);
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   padding: 20px !important;
@@ -239,8 +249,7 @@
   /* margin-left: 10px !important; */
 }
 
-
-.view h5{
+.view h5 {
   font-weight: 400;
   font-size: 16px;
   color: black;
@@ -250,19 +259,19 @@
   margin-bottom: 5px !important;
 }
 
-.lastposte{
+.lastposte {
   font-weight: 800;
   font-size: 36px;
   margin-bottom: 30px !important;
   margin-top: 30px !important;
 }
 
-.imageposts{
+.imageposts {
   width: 100%;
   /* height: 300px; */
 }
 
-.imageposts img{
+.imageposts img {
   /* width: 100%;
   height: 100%; */
 }
@@ -272,7 +281,7 @@
   height: 300px;
 }
 
-.buttonformobile{
+.buttonformobile {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -280,7 +289,7 @@
   display: none;
 }
 
-.buttonformobile div{
+.buttonformobile div {
   width: 150px;
   cursor: pointer;
   background-color: rgba(253, 1, 0, 1);
@@ -293,16 +302,16 @@
   font-size: 20px;
 }
 
-.buttonformobile div:hover{
+.buttonformobile div:hover {
   background-color: rgb(227, 53, 53);
 }
 
-.postsandpdf{
+.postsandpdf {
   width: 100%;
   margin-top: 60px !important;
 }
 
-.detailspdf{
+.detailspdf {
   display: flex;
   /* align-items: center; */
   justify-content: space-between;
@@ -310,20 +319,18 @@
   margin-top: 100px !important;
 }
 
-.detailstitle{
+.detailstitle {
   color: rgba(253, 1, 0, 1);
   font-size: 24px;
   font-weight: 700;
 }
 
-.detailsdescription{
+.detailsdescription {
   font-size: 16px;
   font-weight: 400;
 }
 
-
-
-.update{
+.update {
   display: flex;
   justify-content: center;
   font-weight: 700;
@@ -333,7 +340,7 @@
   padding-top: 10px;
 }
 
-.input{
+.input {
   width: 90%;
   border-radius: 50px;
   text-align: end;
@@ -343,11 +350,11 @@
   font-size: 20px;
 }
 
-.selec{
+.selec {
   border-radius: 50px;
 }
 
-.button-modal{
+.button-modal {
   padding: 20px 10px !important;
   border: none;
   width: 100px;
@@ -366,14 +373,14 @@
   box-shadow: 0 4px 4px 0 #ccc;
 }
 
-.button-modal:hover{
+.button-modal:hover {
   background-color: rgba(253, 1, 0, 1);
   color: rgba(255, 255, 255, 1);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: none;
 }
 
-.bb{
+.bb {
   text-align: center;
   margin-bottom: 10px;
   display: flex;
@@ -397,7 +404,7 @@
   width: 131px;
   height: 44px;
 }
-.modal-content{
+.modal-content {
   border-radius: 25px;
 }
 
@@ -412,10 +419,9 @@
 }
 
 .radio-input:checked {
-  background-color: red; 
-  border: none;/* لون النقطة داخل الدائرة عند التحديد */
+  background-color: red;
+  border: none; /* لون النقطة داخل الدائرة عند التحديد */
 }
-
 
 .react-datepicker__input-container {
   position: relative;
@@ -427,11 +433,11 @@
   padding: 5px; /* تباعد داخلي */
 }
 
-.react-datepicker__input-container input{
-text-align: end;
+.react-datepicker__input-container input {
+  text-align: end;
 }
 
-.rit{
+.rit {
   background-color: red;
   color: white;
   font-size: 14px;
@@ -439,29 +445,29 @@ text-align: end;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
-.master{
+.master {
   background-color: rgba(253, 1, 0, 1);
   height: 55px;
   border-radius: 0px 0px 0px 30px;
 }
 
-.wasem{
+.wasem {
   top: 17.5px;
   position: absolute;
   right: 15px;
 }
 
-.wasemimg{
+.wasemimg {
   width: 40px;
   height: 40px;
 }
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
   display: none !important;
 }
 
 .drop_down {
-  background: #FF0000 !important;
+  background: #ff0000 !important;
   min-width: 100% !important;
   margin-left: 3px !important;
   border-radius: 12px !important;
@@ -475,7 +481,7 @@ text-align: end;
   justify-content: center;
 }
 
-.drop{
+.drop {
   background: #faf8f8 !important;
 }
 
@@ -487,15 +493,15 @@ text-align: end;
   margin: 0 !important;
 }
 
-.btn{
+.btn {
   border: none !important;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   border: none !important;
 }
 
-.namepdfposts{
+.namepdfposts {
   position: absolute;
   right: 80px;
   font-size: 25px;
@@ -505,7 +511,7 @@ text-align: end;
   cursor: pointer;
 }
 
-.rating{
+.rating {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -532,14 +538,14 @@ text-align: end;
   bottom: 0;
   box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8),
     -12px 0 8px -4px rgba(31, 73, 125, 0.8);
-  box-shadow: 0 9px 0px 0px white, 0 -9px 0px 0px white,
+  /* box-shadow: 0 9px 0px 0px white, 0 -9px 0px 0px white,
     12px 0 15px -4px rgba(31, 73, 125, 0.8),
-    -12px 0 15px -4px rgba(31, 73, 125, 0.8);
-    background-color: #FF0000;
-    z-index: 100;
+    -12px 0 15px -4px rgba(31, 73, 125, 0.8); */
+  background-color: #ff0000;
+  z-index: 100;
 }
 
-.icons{
+.icons {
   width: 100%;
   height: 45px;
   display: flex;
@@ -547,61 +553,61 @@ text-align: end;
   justify-content: space-around;
 }
 
-.icons img{
+.icons img {
   width: 30px;
   height: 30px;
 }
 @media (max-width: 768px) {
-  .imagenavbar{
-    height:500px;
+  .imagenavbar {
+    height: 500px;
   }
 }
 
 @media (max-width: 480px) {
-  .tripphoto{
+  .tripphoto {
     background-color: #aaa;
     border-radius: 30px;
     cursor: pointer;
   }
-  .posts{
+  .posts {
     margin-top: 50px !important;
   }
   .textlogo {
     left: 34%;
   }
-  .buttonformobile{
+  .buttonformobile {
     display: flex;
     align-items: center;
     justify-content: space-around;
     /* margin-top: 50px !important; */
     margin-top: 80px !important;
   }
-  .postsandpdf{
+  .postsandpdf {
     width: 100%;
     margin-top: 0px !important;
   }
 
-  .pdf{
+  .pdf {
     margin-top: 30px !important;
   }
-  .numbersyria{
+  .numbersyria {
     margin-left: -5px !important;
   }
-  .trip{
+  .trip {
     width: 150px;
   }
-  .imagenavbar{
-    height:200px;
+  .imagenavbar {
+    height: 200px;
   }
-  .name{
+  .name {
     left: 45%;
   }
-  
 }
 
 .backgorund_admin {
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(255, 197, 196, 0) 0%, #FFC5C4 100%), url('./images/logo.png');
+  background: linear-gradient(180deg, rgba(255, 197, 196, 0) 0%, #ffc5c4 100%),
+    url("./images/logo.png");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -612,10 +618,9 @@ text-align: end;
 .radioGender .form-check {
   margin-left: 10px !important;
 }
-.radioGender .form-check .form-check-label{
+.radioGender .form-check .form-check-label {
   margin-left: 10px !important;
 }
 .radioGender .gen {
   margin-left: 50px !important;
 }
-
