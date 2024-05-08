@@ -198,11 +198,13 @@
 .triptext span {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-line-clamp: 1; /* Limit to 2 lines */
   -webkit-box-orient: vertical;
   white-space: normal; /* Allow text to wrap */
+  word-break: break-all;
   margin: 0; /* Remove default margin */
   text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
+  transition: max-height 0.3s; /* Smooth transition */
 }
 .triptext h5 {
   color: red;
@@ -216,6 +218,13 @@
   font-size: 16px;
   font-weight: 400;
   color: black;
+}
+
+/* Hover effect */
+.triptext:hover h5,
+.triptext:hover span {
+  -webkit-line-clamp: unset; /* Unset line clamp on hover */
+  max-height: unset; /* Display full text on hover */
 }
 
 .posts {

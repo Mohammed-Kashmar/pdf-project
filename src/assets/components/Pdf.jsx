@@ -29,7 +29,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
   const currentDate = new Date().toISOString().split('T')[0];
 
   const pdfUrl =
-    "https://api-rating.watanyia.com/user_api/show_one_pdf?pdfId=8";
+    "https://pdfback.levantsy.com/user_api/show_one_pdf?pdfId=8";
 
   const navigate = useNavigate();
   const [isPress, setIsPress] = useState(false);
@@ -46,7 +46,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
 
   const getAllPdf = async (page) => {
     const respons = await axios.get(
-      `https://api-rating.watanyia.com/user_api/show_pdfs?adminId=${adminId}&page=${page}`
+      `https://pdfback.levantsy.com/user_api/show_pdfs?adminId=${adminId}&page=${page}`
     );
     console.log(respons.data);
     setPdf(respons.data);
@@ -54,7 +54,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
 
   const getAllCountries = async () => {
     const respons = await axios.get(
-      `https://api-rating.watanyia.com/user_api/show_countries`
+      `https://pdfback.levantsy.com/user_api/show_countries`
     );
     console.log(respons);
     setCountries(respons.data.data);
@@ -80,16 +80,16 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
   const handleShowSuccessPassword = async () => {
     try {
       const respons = await axios.get(
-        `https://api-rating.watanyia.com/user_api/show_one_pdf?pdfId=${itemClicked.id}&password=${password}`
+        `https://pdfback.levantsy.com/user_api/show_one_pdf?pdfId=${itemClicked.id}&password=${password}`
       );
       if (respons.data.code === 200) {
         handleCloseInterPassword();
         if (downloadOrView === 1) handleShowPdf();
         else if (downloadOrView === 2) {
-          if((`https://api-rating.watanyia.com/storage/${itemClicked.location}`).slice(-3) === 'pdf'){
+          if((`https://pdfback.levantsy.com/storage/${itemClicked.location}`).slice(-3) === 'pdf'){
             toast.promise(
               new Promise((resolve, reject) => {
-              const localFilePath = ` https://api-rating.watanyia.com/storage/${itemClicked.location}`;
+              const localFilePath = ` https://pdfback.levantsy.com/storage/${itemClicked.location}`;
           axios
             .get(localFilePath, {
               responseType: "blob",
@@ -122,7 +122,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
           };
           toast.promise(
             new Promise((resolve, reject) => {
-            const localFilePath = `https://api-rating.watanyia.com/storage/${itemClicked.location}`;
+            const localFilePath = `https://pdfback.levantsy.com/storage/${itemClicked.location}`;
       axios
           .get(localFilePath, {
               responseType: "blob",
@@ -219,7 +219,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
       try{
         setIsPress(true);
         const respons = await axios.post(
-          `https://api-rating.watanyia.com/user_api/add_rate`,
+          `https://pdfback.levantsy.com/user_api/add_rate`,
           formData
         );
         setIsPress(false);
@@ -242,11 +242,11 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
   };
 
   const downloadFile = async (item) => {
-    if((`https://api-rating.watanyia.com/storage/${item.location}`).slice(-3) === 'pdf'){
+    if((`https://pdfback.levantsy.com/storage/${item.location}`).slice(-3) === 'pdf'){
       if (item.is_lock === 0) {
         toast.promise(
           new Promise((resolve, reject) => {  
-          const localFilePath = ` https://api-rating.watanyia.com/storage/${item.location}`;
+          const localFilePath = ` https://pdfback.levantsy.com/storage/${item.location}`;
         axios
           .get(localFilePath, {
             responseType: "blob",
@@ -285,7 +285,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
     if (item.is_lock === 0) {
       toast.promise(
         new Promise((resolve, reject) => {
-        const localFilePath = `https://api-rating.watanyia.com/storage/${item.location}`;
+        const localFilePath = `https://pdfback.levantsy.com/storage/${item.location}`;
       axios
           .get(localFilePath, {
               responseType: "blob",
@@ -367,7 +367,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
                     }}
                   >
                     <img
-                      src={`https://api-rating.watanyia.com/storage/${item.cover}`}
+                      src={`https://pdfback.levantsy.com/storage/${item.cover}`}
                       alt=""
                     />
                   </div>
@@ -629,9 +629,9 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
   <Modal.Body className="p-3">
     <div>
       {
-        (`https://api-rating.watanyia.com/storage/${itemClicked.location}`).slice(-3) === 'pdf' ? (
+        (`https://pdfback.levantsy.com/storage/${itemClicked.location}`).slice(-3) === 'pdf' ? (
           <iframe
-            src={`https://api-rating.watanyia.com/storage/${itemClicked.location}`}
+            src={`https://pdfback.levantsy.com/storage/${itemClicked.location}`}
             type="application/pdf"
             width="100%"
             height="600px"
@@ -639,7 +639,7 @@ export const Pdf = ({ viewPdf, setViewPdf }) => {
         ) : (
           <div>
             <ReactPlayer
-              url={`https://api-rating.watanyia.com/storage/${itemClicked.location}`}
+              url={`https://pdfback.levantsy.com/storage/${itemClicked.location}`}
               controls={true}
               width="100%"
               height="100%"

@@ -97,10 +97,10 @@ export default function AllAdmins() {
     });
 
     setImg(
-      `https://api-rating.watanyia.com/storage/${res.data.data.admin_detail.cover}`
+      `https://pdfback.levantsy.com/storage/${res.data.data.admin_detail.cover}`
     );
     setImgLogo(
-      `https://api-rating.watanyia.com/storage/${res.data.data.admin_detail.logo}`
+      `https://pdfback.levantsy.com/storage/${res.data.data.admin_detail.logo}`
     );
   };
   const handleCloseAddAdmin = () => setAddAdmin(false);
@@ -131,7 +131,7 @@ export default function AllAdmins() {
     const res = await useGetDataSuperAdmin(
       `/superAdmin_api/show_one_admin?adminId=${admin.id}`
     );
-    console.log(res.data.data.sms_user.good.toString());
+    // console.log(res.data.data)
     setFormData({
       ...formData,
       name: res.data.data.name || initialState.name,
@@ -153,10 +153,10 @@ export default function AllAdmins() {
     });
 
     setImg(
-      `https://api-rating.watanyia.com/storage/${res.data.data.admin_detail.cover}`
+      `https://pdfback.levantsy.com/storage/${res.data.data.admin_detail.cover}`
     );
     setImgLogo(
-      `https://api-rating.watanyia.com/storage/${res.data.data.admin_detail.logo}`
+      `https://pdfback.levantsy.com/storage/${res.data.data.admin_detail.logo}`
     );
   };
 

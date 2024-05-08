@@ -12,7 +12,7 @@ export const Homepage = () => {
   useEffect(() => {
     const showadmin = async () => {
       const respons = await axios.get(
-        `https://api-rating.watanyia.com/user_api/show_admin_by_name?name=${name}`
+        `https://pdfback.levantsy.com/user_api/show_admin_by_name?name=${name}`
       );
       console.log(respons);
       setAdminDetails(respons.data.data.admin_detail);

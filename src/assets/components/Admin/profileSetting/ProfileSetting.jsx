@@ -63,10 +63,10 @@ export const ProfileSetting = () => {
       });
 
       setImg(
-        `https://api-rating.watanyia.com/storage/${adminDetails.data.data.admin_detail.cover}`
+        `https://pdfback.levantsy.com/storage/${adminDetails.data.data.admin_detail.cover}`
       );
       setImgLogo(
-        `https://api-rating.watanyia.com/storage/${adminDetails.data.data.admin_detail.logo}`
+        `https://pdfback.levantsy.com/storage/${adminDetails.data.data.admin_detail.logo}`
       );
       // setSelectedFile(adminDetails.data.data.admin_detail.cover)
       // setSelectedFileLogo(adminDetails.data.data.admin_detail.logo)

@@ -29,7 +29,7 @@ const Pdf = () => {
   const [editPdf, setEditPdf] = useState(false);
   const [loadingFirst, setLoadingFirst] = useState(true);
   const [imgs, setImgs] = useState([]);
-
+  const [page, setPage] = useState(1)
   const [pdfs, setPdfs] = useState([]);
   const [isPress, setIsPress] = useState(false);
   const [img, setImg] = useState("");
@@ -62,7 +62,7 @@ const Pdf = () => {
       cover: null,
       is_lock: pdf.is_lock || initialState.is_lock,
     });
-    setImg(`https://api-rating.watanyia.com/storage/${pdf.cover}`);
+    setImg(`https://pdfback.levantsy.com/storage/${pdf.cover}`);
   };
 
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -83,8 +83,8 @@ const Pdf = () => {
     console.log(res);
   };
   useEffect(() => {
-    fetchData("");
-  }, []);
+    fetchData(page);
+  }, [page]);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -136,7 +136,7 @@ const Pdf = () => {
       setFormData(initialState);
       handleCloseAddPdf();
       setImg("");
-      fetchData("");
+      fetchData(page);
     } else {
       notify(response.data.message, "error");
     }
@@ -163,7 +163,7 @@ const Pdf = () => {
       notify(response.data.message, "success");
       setFormData(initialState)
       handleCloseEditPdf();
-      fetchData("");
+      fetchData(page);
     } else {
       notify(response.data.message, "error");
     }
@@ -177,13 +177,14 @@ const Pdf = () => {
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseDelete();
-      fetchData("");
+      fetchData(page);
     } else {
       notify(response.data.message, "error");
     }
   };
   const onPress = async (page) => {
-    fetchData(page);
+    setPage(page)
+    // fetchData(page);
   };
   return (
     <Fragment>
@@ -257,7 +258,7 @@ const Pdf = () => {
             <div className="row">
               <div className="col p-4 d-flex flex-column justify-content-center align-items-center">
                 <img
-                  src={`https://api-rating.watanyia.com/storage/${show.cover}`}
+                  src={`https://pdfback.levantsy.com/storage/${show.cover}`}
                   alt=""
                   style={{ width: "300px" }}
                 />

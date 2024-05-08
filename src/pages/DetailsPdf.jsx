@@ -60,7 +60,7 @@ export const DetailsPdf = () => {
     } 
     else{
       const respons = await axios.post(
-        `https://api-rating.watanyia.com/user_api/add_rate`,formData
+        `https://pdfback.levantsy.com/user_api/add_rate`,formData
       );
       if(respons.data.code === 200){
         toast.success("Rate Add Successfully")
@@ -84,7 +84,7 @@ export const DetailsPdf = () => {
   useEffect(() => {
     const pdf = async () => {
       const respons = await axios.get(
-        `https://api-rating.watanyia.com/user_api/show_one_pdf?pdfId=${id}`
+        `https://pdfback.levantsy.com/user_api/show_one_pdf?pdfId=${id}`
       );
       console.log(respons.data.data);
       setDetailsPdf(respons.data.data);
@@ -93,7 +93,7 @@ export const DetailsPdf = () => {
   }, []);
 
 const downloadFile = (location) => {
-  const url = `https://api-rating.watanyia.com/storage/${location}`;
+  const url = `https://pdfback.levantsy.com/storage/${location}`;
 
   axios({
     url: url,
@@ -149,13 +149,13 @@ const downloadFile = (location) => {
                 className="tripphoto"
                 onClick={() =>
                   window.open(
-                    `https://api-rating.watanyia.com/storage/${detailsPdf.location}`,
+                    `https://pdfback.levantsy.com/storage/${detailsPdf.location}`,
                     "_blank"
                   )
                 }
               >
                 <img
-                  src={`https://api-rating.watanyia.com/storage/${detailsPdf.cover}`}
+                  src={`https://pdfback.levantsy.com/storage/${detailsPdf.cover}`}
                   alt=""
                 />
               </div>

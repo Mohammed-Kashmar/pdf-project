@@ -6,13 +6,14 @@ import { useGetData } from "../../../../hooks/useGetData";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import Pagination from "../utility/pagination/Pagination";
-import './Rates.css'
+import "./Rates.css";
 import notify from "../../utility/useNotification";
 import { ToastContainer } from "react-toastify";
 
 function Rates() {
   const [loadingFirst, setLoadingFirst] = useState(true);
   const [rates, setRates] = useState([]);
+  const [page, setPage] = useState(1);
 
   const userData = JSON.parse(localStorage.getItem("user"));
   const fetchData = async (page) => {
@@ -24,19 +25,20 @@ function Rates() {
     // setRates(res);
     if (res.status === 200 && res.data.status !== 401) {
       setRates(res.data);
-    }else if (res.status === 200 && res.data.status === 401) {
-      notify(res.data.message, "error")
+    } else if (res.status === 200 && res.data.status === 401) {
+      notify(res.data.message, "error");
     } else if (res.status === 404) {
       setRates([]);
     }
     console.log(res);
   };
   useEffect(() => {
-    fetchData("");
-  }, []);
+    fetchData(page);
+  }, [page]);
 
   const onPress = async (page) => {
-    fetchData(page);
+    // fetchData(page);
+    setPage(page);
   };
   // console.log(rates)
 
@@ -58,22 +60,23 @@ function Rates() {
               {rates && rates.data && rates.data.length > 0 ? (
                 rates.data.map((rate) => {
                   return (
-                    <tr key={rate.id}  className=''>
-                      <td style={{ textAlign: "center" }} className='clicked_td'>
+                    <tr key={rate.id} className="">
+                      <td
+                        style={{ textAlign: "center" }}
+                        className="clicked_td"
+                      >
                         <Link
                           style={{
                             textDecoration: "none",
                             color: "black",
-                            display: 'block',
-                            
+                            display: "block",
                           }}
-                          
                           to={`/admin/rates/${rate.id}`}
                         >
                           {rate.title}
                         </Link>
                       </td>
-                      <td className="d-flex justify-content-center" >
+                      <td className="d-flex justify-content-center">
                         <ReactStars
                           count={5}
                           value={rate.average_rate}
@@ -115,7 +118,7 @@ function Rates() {
         <Pagination onPress={onPress} pageCount={rates.last_page} />
       ) : null}
 
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 }

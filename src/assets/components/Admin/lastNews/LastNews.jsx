@@ -47,6 +47,9 @@ const LastNews = () => {
   const [typePost, setTypePost] = useState("");
   const [video, setVideo] = useState("");
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [postImagesLength, setPostImagesLength] = useState("");
+  // const [currentPost, setCurrentPost] = useState([])
 
   const handleCloseDelete = () => setShowDelete(null);
   const handleShowDelete = (id) => setShowDelete(id);
@@ -56,7 +59,7 @@ const LastNews = () => {
     let acc = [];
     acc = post.post_images.map((post) => {
       return {
-        original: `https://api-rating.watanyia.com/storage/${post.location}`,
+        original: `https://pdfback.levantsy.com/storage/${post.location}`,
       };
     });
     setShow(post);
@@ -70,6 +73,13 @@ const LastNews = () => {
     setAddPost(true);
   };
 
+  const handleShowOnePost = async (id) => {
+    const res = await useGetData(`/admin_api/show_one_post?postId=${id}`);
+    // setCurrentPost(res.data.data)
+    setPostImagesLength(res.data.data.post_images.length);
+    return res;
+  };
+  console.log(postImagesLength);
   const handleCloseEditPost = () => setEditPost(false);
   const handleShowEditPost = async (post) => {
     setEditPost(post);
@@ -78,8 +88,8 @@ const LastNews = () => {
     setImg2(avatar);
     setImg3(avatar);
     setLoading(true);
-    const res = await useGetData(`/admin_api/show_one_post?postId=${post.id}`);
-    console.log(res);
+    // const res = await useGetData(`/admin_api/show_one_post?postId=${post.id}`);
+    const res = await handleShowOnePost(post);
     setLoading(false);
     setEditPost(res.data.data);
     setFormData({
@@ -88,24 +98,22 @@ const LastNews = () => {
     });
     let acc = [];
     acc = res.data.data.post_images.map((post) => {
-      return [`https://api-rating.watanyia.com/storage/${post.location}`];
+      return [`https://pdfback.levantsy.com/storage/${post.location}`];
     });
     setImages_product(acc);
 
     if (res.data.data.video !== null) {
-      setVideo(
-        `https://api-rating.watanyia.com/storage/${res.data.data.video}`
-      );
+      setVideo(`https://pdfback.levantsy.com/storage/${res.data.data.video}`);
     }
 
     setImg(
-      `https://api-rating.watanyia.com/storage/${res.data.data.post_images[0].location}`
+      `https://pdfback.levantsy.com/storage/${res.data.data.post_images[0].location}`
     );
     setImg2(
-      `https://api-rating.watanyia.com/storage/${res.data.data.post_images[1].location}`
+      `https://pdfback.levantsy.com/storage/${res.data.data.post_images[1].location}`
     );
     setImg3(
-      `https://api-rating.watanyia.com/storage/${res.data.data.post_images[2].location}`
+      `https://pdfback.levantsy.com/storage/${res.data.data.post_images[2].location}`
     );
 
     setSelectedFile(null);
@@ -123,15 +131,15 @@ const LastNews = () => {
     console.log(res);
     if (res.status === 200 && res.data.status !== 401) {
       setPosts(res);
-    }else if (res.status === 200 && res.data.status === 401){
-      notify(res.data.message, "error")
+    } else if (res.status === 200 && res.data.status === 401) {
+      notify(res.data.message, "error");
     } else {
       setPosts([]);
     }
   };
   useEffect(() => {
-    fetchData("");
-  }, []);
+    fetchData(page);
+  }, [page]);
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     const newValue = type === "file" ? files[0] : value;
@@ -203,29 +211,66 @@ const LastNews = () => {
       setFormData(initialState);
       setImages_product([]);
       handleCloseAddPost();
-      fetchData("");
+      fetchData(page);
     } else {
       notify(response.data.message, "error");
     }
     setIsPress(false);
   };
 
-  const onImageChange = (event) => {
+  const onImageChange =async (event, id) => {
     if (event.target.files && event.target.files[0]) {
       setImg(URL.createObjectURL(event.target.files[0]));
       setSelectedFile(event.target.files[0]);
+      setPostImagesLength((prev) => (prev += 1));
+    }
+    console.log(id)
+    const responseTwo = await useInsertDataWithImage(
+      `/admin_api/add_post_images?postId=${id}`,{
+        "image": event.target.files[0], "index":0
+      }
+    );
+    if (responseTwo.data.success === true) {
+      notify(responseTwo.data.message, "success");
+      handleShowEditPost(id);
+    } else {
+      notify(responseTwo.data.message, "error");
     }
   };
-  const onImageChange2 = (event) => {
+  const onImageChange2 =async (event, id) => {
     if (event.target.files && event.target.files[0]) {
       setImg2(URL.createObjectURL(event.target.files[0]));
       setSelectedFile2(event.target.files[0]);
+      setPostImagesLength((prev) => (prev += 1));
+    }
+    const responseTwo = await useInsertDataWithImage(
+      `/admin_api/add_post_images?postId=${id}`,{
+        "image": event.target.files[0], "index":1
+      }
+    );
+    if (responseTwo.data.success === true) {
+      notify(responseTwo.data.message, "success");
+      handleShowEditPost(id);
+    } else {
+      notify(responseTwo.data.message, "error");
     }
   };
-  const onImageChange3 = (event) => {
+  const onImageChange3 = async(event, id) => {
     if (event.target.files && event.target.files[0]) {
       setImg3(URL.createObjectURL(event.target.files[0]));
       setSelectedFile3(event.target.files[0]);
+      setPostImagesLength((prev) => (prev += 1));
+    }
+    const responseTwo = await useInsertDataWithImage(
+      `/admin_api/add_post_images?postId=${id}`,{
+        "image": event.target.files[0], "index":2
+      }
+    );
+    if (responseTwo.data.success === true) {
+      notify(responseTwo.data.message, "success");
+      handleShowEditPost(id);
+    } else {
+      notify(responseTwo.data.message, "error");
     }
   };
 
@@ -235,6 +280,9 @@ const LastNews = () => {
     );
     if (response.data.success === true) {
       notify(response.data.message, "success");
+      // handleShowOnePost(response.data.data.post_id);
+      console.log(response.data.data.post_id);
+      handleShowEditPost(response.data.data.post_id);
       if (id === 1) {
         setImg(avatar);
         setSelectedFile(null);
@@ -254,10 +302,10 @@ const LastNews = () => {
   const handleSubmitEditPost = async (e) => {
     e.preventDefault();
 
-    const formDataForImage = new FormData();
-    selectedFile && formDataForImage.append("images[0]", selectedFile);
-    selectedFile2 && formDataForImage.append("images[1]", selectedFile2);
-    selectedFile3 && formDataForImage.append("images[2]", selectedFile3);
+    // const formDataForImage = new FormData();
+    // selectedFile && formDataForImage.append("images[0]", selectedFile);
+    // selectedFile2 && formDataForImage.append("images[1]", selectedFile2);
+    // selectedFile3 && formDataForImage.append("images[2]", selectedFile3);
 
     let updatedFormData = { ...formData };
     delete updatedFormData["images[0]"];
@@ -276,21 +324,21 @@ const LastNews = () => {
     }
     console.log(responseOne.data);
 
-    const formDataEntries = [...formDataForImage.entries()];
-    if (formDataEntries.length > 0) {
-      const responseTwo = await useInsertDataWithImage(
-        `/admin_api/add_post_images?postId=${editPost.id}`,
-        formDataForImage
-      );
-      if (responseTwo.data.success === true) {
-        notify(responseTwo.data.message, "success");
-      } else {
-        notify(responseTwo.data.message, "error");
-      }
+    // const formDataEntries = [...formDataForImage.entries()];
+    // if (formDataEntries.length > 0) {
+    //   const responseTwo = await useInsertDataWithImage(
+    //     `/admin_api/add_post_images?postId=${editPost.id}`,
+    //     formDataForImage
+    //   );
+    //   if (responseTwo.data.success === true) {
+    //     notify(responseTwo.data.message, "success");
+    //   } else {
+    //     notify(responseTwo.data.message, "error");
+    //   }
 
-      console.log(responseTwo.data);
-    }
-    fetchData("");
+    //   console.log(responseTwo.data);
+    // }
+    fetchData(page);
   };
 
   const handleDeletePost = async (id) => {
@@ -300,14 +348,15 @@ const LastNews = () => {
     if (response.data.success === true) {
       notify(response.data.message, "success");
       handleCloseDelete();
-      fetchData("");
+      fetchData(page);
     } else {
       notify(response.data.message, "error");
     }
   };
 
   const onPress = async (page) => {
-    fetchData(page);
+    // fetchData(page);
+    setPage(page);
   };
 
   return (
@@ -341,7 +390,7 @@ const LastNews = () => {
                       <td>{new Date(post.created_at).toLocaleString()}</td>
                       <td>
                         <FaEye onClick={() => handleShow(post)} />
-                        <MdEdit onClick={() => handleShowEditPost(post)} />
+                        <MdEdit onClick={() => handleShowEditPost(post.id)} />
                         <MdDelete onClick={() => handleShowDelete(post.id)} />
                       </td>
                     </tr>
@@ -387,9 +436,16 @@ const LastNews = () => {
             <div className="row">
               <div className="col p-4 d-flex justify-content-center">
                 {show.video !== null ? (
-                  <video width="320" height="240" controls autoPlay onContextMenu={e => e.preventDefault()} controlsList="nodownload">
+                  <video
+                    width="320"
+                    height="240"
+                    controls
+                    autoPlay
+                    onContextMenu={(e) => e.preventDefault()}
+                    controlsList="nodownload"
+                  >
                     <source
-                      src={`https://api-rating.watanyia.com/storage/${show.video}`}
+                      src={`https://pdfback.levantsy.com/storage/${show.video}`}
                       type="video/mp4"
                     />
                   </video>
@@ -639,8 +695,7 @@ const LastNews = () => {
                     >
                       x
                     </label>
-
-                    {img === avatar ? (
+                    {postImagesLength < 3 ? (
                       <Fragment>
                         <label htmlFor="upload-photo">
                           <img
@@ -654,7 +709,7 @@ const LastNews = () => {
                         <input
                           type="file"
                           name="photo"
-                          onChange={onImageChange}
+                          onChange={(e)=>onImageChange(e,editPost.id)}
                           id="upload-photo"
                         />
                       </Fragment>
@@ -672,7 +727,7 @@ const LastNews = () => {
                     >
                       x
                     </label>
-                    {img2 === avatar ? (
+                    {postImagesLength < 3 ? (
                       <Fragment>
                         <label htmlFor="upload-photo2">
                           <img
@@ -686,7 +741,7 @@ const LastNews = () => {
                         <input
                           type="file"
                           name="photo"
-                          onChange={onImageChange2}
+                          onChange={(e)=>onImageChange2(e,editPost.id)}
                           id="upload-photo2"
                         />
                       </Fragment>
@@ -704,7 +759,7 @@ const LastNews = () => {
                       x
                     </label>
 
-                    {img3 === avatar ? (
+                    {postImagesLength < 3 ? (
                       <Fragment>
                         <label htmlFor="upload-photo3">
                           <img
@@ -718,7 +773,7 @@ const LastNews = () => {
                         <input
                           type="file"
                           name="photo"
-                          onChange={onImageChange3}
+                          onChange={(e)=>onImageChange3(e,editPost.id)}
                           id="upload-photo3"
                         />
                       </Fragment>

@@ -16,7 +16,7 @@ export default function RatesPdf() {
     from_date: "2024-01-10",
     to_date: "2024-05-14",
     gender: "male",
-    rate: "",
+    rate: 0,
     from_age: "",
     to_age: "",
     page: "",
@@ -25,7 +25,7 @@ export default function RatesPdf() {
   let query = `/admin_api/show_pdf_rates?pdfId=${pdfId}&from_date=${filterParams.from_date}&to_date=${filterParams.to_date}&gender=${filterParams.gender}`;
 
   query += filterParams.page ? `&page=${filterParams.page}` : "";
-  query += filterParams.rate ? `&rate=${filterParams.rate}` : "";
+  query += filterParams.rate !== 0 ? `&rate=${filterParams.rate}` : "";
   query += filterParams.from_age ? `&from_age=${filterParams.from_age}` : "";
   query += filterParams.to_age ? `&to_age=${filterParams.to_age}` : "";
   const {
@@ -49,7 +49,8 @@ export default function RatesPdf() {
       from_date: "2024-01-10",
       to_date: "2024-05-14",
       gender: "male",
-      rate: "",
+      // rate: "",
+      rate: 0,
       from_age: "",
       to_age: "",
       page: "",
@@ -164,6 +165,7 @@ export default function RatesPdf() {
             }
             size={25}
             activeColor="#ffd700"
+            value={filterParams.rate}
           />
         </Col>
         <Col className="d-flex align-items-start justify-content-center ">

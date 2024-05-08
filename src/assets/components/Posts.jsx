@@ -15,7 +15,7 @@ export const Posts = ({ viewPosts, setViewPosts }) => {
 
   const getposts = async (page) => {
     const respons = await axios.get(
-      `https://api-rating.watanyia.com/user_api/show_posts?adminId=${adminId}&page=${page}`
+      `https://pdfback.levantsy.com/user_api/show_posts?adminId=${adminId}&page=${page}`
     );
     console.log(respons);
     setPosts(respons.data);
@@ -28,8 +28,8 @@ export const Posts = ({ viewPosts, setViewPosts }) => {
     if (posts.data && posts.data.length > 0) {
       const imagesArray = posts.data.map((item) => {
         const postImages = item.post_images.map((image) => ({
-          original: ` https://api-rating.watanyia.com/storage/${image.location}`,
-          thumbnail: `https://api-rating.watanyia.com/storage/${image.location}`,
+          original: ` https://pdfback.levantsy.com/storage/${image.location}`,
+          thumbnail: `https://pdfback.levantsy.com/storage/${image.location}`,
         }));
 
         return {
@@ -92,7 +92,7 @@ export const Posts = ({ viewPosts, setViewPosts }) => {
                     <div className="imageposts">
                       <div>
                         <ReactPlayer
-                          url={`https://api-rating.watanyia.com/storage/${item.video}`}
+                          url={`https://pdfback.levantsy.com/storage/${item.video}`}
                           controls={true}
                           width="100%"
                           height="100%"

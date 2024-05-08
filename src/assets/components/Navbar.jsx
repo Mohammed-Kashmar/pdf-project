@@ -15,7 +15,7 @@ export const Navbar = ({name,adminDetails,viewPdf}) => {
   // useEffect(() => {
   //   const showadmin = async () => {
   //     const respons = await axios.get(
-  //       `https://api-rating.watanyia.com/user_api/show_admin_by_name?name=${name}`
+  //       `https://pdfback.levantsy.com/user_api/show_admin_by_name?name=${name}`
   //     );
   //     console.log(respons);
   //     setAdminDetails(respons.data.data.admin_detail);
@@ -29,7 +29,7 @@ export const Navbar = ({name,adminDetails,viewPdf}) => {
       <div className="master">
         <div className="logo">
           <img
-            src={`https://api-rating.watanyia.com/storage/${adminDetails.logo}`}
+            src={`https://pdfback.levantsy.com/storage/${adminDetails.logo}`}
             alt=""
           />
         </div>
@@ -123,7 +123,7 @@ export const Navbar = ({name,adminDetails,viewPdf}) => {
       {
         viewPdf ? (<div className="imagenavbar">
         <img
-          src={`https://api-rating.watanyia.com/storage/${adminDetails.cover}`}
+          src={`https://pdfback.levantsy.com/storage/${adminDetails.cover}`}
           alt=""
           
         />
